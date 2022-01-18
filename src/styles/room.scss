@@ -16,6 +16,8 @@
 
       > div {
         display: flex;
+        flex-wrap: wrap-reverse;
+        justify-content: end;
         gap: 16px;
 
         button {
@@ -26,8 +28,9 @@
   }
 
   main {
-    max-width: 800px;
+    max-width: 840px;
     margin: 0 auto;
+    padding: 0 20px;
 
     .room-title {
       margin: 32px 0 24px;
@@ -109,4 +112,10 @@
       margin: 32px 0 8px;
     }
   }
+
+  @media (max-width: 450px) {
+    .content > img {
+      display: none;
+    }
+  } 
 }

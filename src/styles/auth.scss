@@ -141,4 +141,10 @@
         }
     }
 
+    @media (max-width: 825px) {
+        aside {
+            display: none;
+        }
+    }
+
 }
