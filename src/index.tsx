@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
+import registerServiceWorker from "./serviceWorker";
 
 import './services/firebase';
 
@@ -12,3 +13,5 @@ ReactDOM.render(
   </React.StrictMode>,
   document.getElementById('root')
 );
+
+registerServiceWorker();
