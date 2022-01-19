@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
-import registerServiceWorker from "./serviceWorker";
+import * as serviceWorkerRegistration from './serviceWorkerRegistration';
 
 import './services/firebase';
 
@@ -14,4 +14,4 @@ ReactDOM.render(
   document.getElementById('root')
 );
 
-registerServiceWorker();
+serviceWorkerRegistration.register();
