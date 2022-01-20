@@ -11,7 +11,7 @@ import { RoomCode } from '../../components/RoomCode';
 
 import { useRoom } from '../../hooks/useRoom';
 
-import './styles.scss'
+import { Header, Main, QuestionList, RoomTitle } from './styles';
 
 import { database } from '../../services/firebase';
 
@@ -54,8 +54,8 @@ export function AdminRoom() {
   }
 
   return (
-    <div id="page-room">
-      <header>
+    <div>
+      <Header>
         <div className="content">
           <img src={LogoImg} alt="Letmeask" />
           <div>
@@ -63,17 +63,17 @@ export function AdminRoom() {
             <Button isOutlined onClick={handleEndRoom}>Encerrar sala</Button>
           </div>
         </div>
-      </header>
+      </Header>
 
-      <main>
-        <div className="room-title">
+      <Main>
+        <RoomTitle>
           <h1>
             Sala {title}
           </h1>
           {questions.length > 0 && <span>{questions.length} pergunta(s)</span>}
-        </div>
+        </RoomTitle>
 
-        <div className="question-list">
+        <QuestionList>
           {questions.map(question => {
             return (
               <Question
@@ -110,8 +110,8 @@ export function AdminRoom() {
               </Question>
             )
           })}
-        </div>
-      </main>
+        </QuestionList>
+      </Main>
     </div>
   )
 }

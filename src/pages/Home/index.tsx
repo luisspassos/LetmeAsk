@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom'
 import LogoImg from '../../assets/images/logo.svg'
 import googleIconImg from '../../assets/images/google-icon.svg'
 
-import './styles.scss'
+import { Container, MainContent } from './styles'
 
 import { Button } from '../../components/Button'
 import { Aside } from '../../components/Aside'
@@ -52,10 +52,10 @@ export function Home() {
     }
 
     return (
-        <div id="page-auth">
+        <Container>
             <Aside />
             <main>
-                <div className='main-content'>
+                <MainContent>
                     <img src={LogoImg} alt="Letmeask" />
                     <Button onClick={handleCreateRoom} className='create-room'>
                         <img src={googleIconImg} alt="Logo do Google" />
@@ -73,8 +73,8 @@ export function Home() {
                             Entrar na sala
                         </Button>
                     </form>
-                </div>
+                </MainContent>
             </main>
-        </div>
+        </Container>
     )
 }
