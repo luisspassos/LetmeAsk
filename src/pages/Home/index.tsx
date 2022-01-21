@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom'
 import LogoImg from '../../assets/images/logo.svg'
 import googleIconImg from '../../assets/images/google-icon.svg'
 
-import { Container, MainContent } from './styles'
+import { Container, MainContent, Form, Separator } from './styles'
 
 import { Button } from '../../components/Button'
 import { Aside } from '../../components/Aside'
@@ -61,8 +61,8 @@ export function Home() {
                         <img src={googleIconImg} alt="Logo do Google" />
                         Crie sua sala com o Google
                     </Button>
-                    <div className="separator">ou entre em uma sala</div>
-                    <form onSubmit={handleJoinRoom}>
+                    <Separator>ou entre em uma sala</Separator>
+                    <Form onSubmit={handleJoinRoom}>
                         <input 
                             type="text"
                             placeholder='Digite o código da sala'
@@ -72,7 +72,7 @@ export function Home() {
                         <Button type="submit">
                             Entrar na sala
                         </Button>
-                    </form>
+                    </Form>
                 </MainContent>
             </main>
         </Container>

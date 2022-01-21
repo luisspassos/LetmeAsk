@@ -4,7 +4,7 @@ import { Link, useNavigate } from 'react-router-dom'
 
 import LogoImg from '../../assets/images/logo.svg'
 
-import './styles.scss'
+import { Container, Form, MainContent } from './styles'
 
 import { Button } from '../../components/Button'
 import { Aside } from '../../components/Aside'
@@ -36,13 +36,13 @@ export function NewRoom() {
     }
 
     return (
-        <div id="page-auth">
+        <Container>
             <Aside />
             <main>
-                <div className='main-content'>
+                <MainContent>
                     <img src={LogoImg} alt="Letmeask" />
                     <h2>Criar uma nova sala</h2>
-                    <form onSubmit={handleCreateRoom}>
+                    <Form onSubmit={handleCreateRoom}>
                         <input 
                             type="text"
                             placeholder='Nome da sala'
@@ -52,12 +52,12 @@ export function NewRoom() {
                         <Button type="submit">
                             Criar sala
                         </Button>
-                    </form>
+                    </Form>
                     <p>
                         Quer entrar em uma sala existente? <Link to="/">clique aqui</Link>
                     </p>
-                </div>
+                </MainContent>
             </main>
-        </div>
+        </Container>
     )
 }

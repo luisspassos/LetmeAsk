@@ -33,6 +33,16 @@ export const MainContent = styled.div`
     margin: 64px 0 24px;
     font-family: 'Poppins', sans-serif;
   }
+
+  p {
+    font-size: 14px;
+    color: #737380;
+    margin-top: 16px;
+  }
+
+  a {
+    color: #e559f9;
+  }
 `
 
 export const Form = styled.form`
@@ -50,30 +60,5 @@ export const Form = styled.form`
 
   button, input {
     width: 100%;
-  }
-`
-
-export const Separator = styled.div`
-  font-size: 14px;
-  color: #a8a8b3;
-
-  margin: 32px 0;
-  display: flex;
-  align-items: center;
-
-  &::before {
-    content: '';
-    flex: 1;
-    height: 1px;
-    background-color: #a8a8b3;
-    margin-right: 16px;
-  }
-
-  &::after {
-    content: '';
-    flex: 1;
-    height: 1px;
-    background-color: #a8a8b3;
-    margin-left: 16px;
   }
 `

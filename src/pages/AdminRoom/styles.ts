@@ -18,7 +18,8 @@ export const Header = styled.header`
 
     > div {
       display: flex;
-      flex-wrap: wrap-reverse;
+      align-items: center;
+      flex-wrap: wrap;
       justify-content: end;
       gap: 16px;
 

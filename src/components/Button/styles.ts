@@ -8,8 +8,8 @@ export const StylizedButton = styled.button<StylizedButtonProps>`
   height: 50px;
   border-radius: 8px;
   font-weight: 500;
-  background-color: ${({isOutlined})=> isOutlined ? '#FFF' : '#835afd'};
-  color: ${({isOutlined})=> isOutlined ? '#835afd' : '#FFF'};
+  background-color: ${({ isOutlined }) => isOutlined ? '#FFF' : '#835afd'};
+  color: ${({ isOutlined }) => isOutlined ? '#835afd' : '#FFF'};
   padding: 0 32px;
 
   display: flex;
@@ -17,7 +17,7 @@ export const StylizedButton = styled.button<StylizedButtonProps>`
   align-items: center;
   
   cursor: pointer;
-  border: ${({isOutlined})=> isOutlined ? '1px solid #835afd' : 0};
+  border: ${({ isOutlined }) => isOutlined ? '1px solid #835afd' : 0};
 
   transition: filter 0.2s;
 
@@ -32,5 +32,31 @@ export const StylizedButton = styled.button<StylizedButtonProps>`
   &:disabled {
     opacity: 0.6;
     cursor: not-allowed;
+  }
+
+  &.create-room {
+    margin-top: 64px;
+    height: 50px;
+    border-radius: 8px;
+    font-weight: 500;
+    background-color: #ea4335;
+    color: white;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+    cursor: pointer;
+    border: 0;
+
+    transition: filter 0.2s;
+
+    img {
+      margin-right: 8px;
+    }
+
+    &:hover {
+      filter: brightness(0.9);
+    }
   }
 `

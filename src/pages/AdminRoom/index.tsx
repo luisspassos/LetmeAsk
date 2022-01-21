@@ -8,6 +8,7 @@ import answerImg from '../../assets/images/answer.svg'
 import { Button } from '../../components/Button';
 import { Question } from '../../components/Question';
 import { RoomCode } from '../../components/RoomCode';
+import { Switcher } from '../../components/Switcher';
 
 import { useRoom } from '../../hooks/useRoom';
 
@@ -61,6 +62,7 @@ export function AdminRoom() {
           <div>
             <RoomCode code={roomId} />
             <Button isOutlined onClick={handleEndRoom}>Encerrar sala</Button>
+            <Switcher />
           </div>
         </div>
       </Header>

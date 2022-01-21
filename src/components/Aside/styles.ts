@@ -28,4 +28,10 @@ export const StylizedAside = styled.aside`
     margin-top: 16px;
     color: #f8f8f8;
   }
+
+  @media (max-width: 825px) {
+    & {
+      display: none;
+    }
+  }
 `
