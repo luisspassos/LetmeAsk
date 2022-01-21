@@ -36,12 +36,12 @@ export const MainContent = styled.div`
 
   p {
     font-size: 14px;
-    color: #737380;
+    color: ${props => props.theme.colors.text_secondary};
     margin-top: 16px;
   }
 
   a {
-    color: #e559f9;
+    color: ${props => props.theme.colors.tertiary};
   }
 `
 
@@ -51,7 +51,7 @@ export const Form = styled.form`
     border-radius: 8px;
     padding: 0 16px;
     background-color: white;
-    border: 1px solid #a8a8b3;
+    border: 1px solid ${props => props.theme.colors.text_tertiary};
   }
 
   button {

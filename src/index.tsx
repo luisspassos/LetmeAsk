@@ -5,11 +5,9 @@ import * as serviceWorkerRegistration from './serviceWorkerRegistration';
 
 import './services/firebase';
 
-import './styles/global.scss'
-
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+      <App />
   </React.StrictMode>,
   document.getElementById('root')
 );

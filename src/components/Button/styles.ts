@@ -2,14 +2,14 @@ import styled from "styled-components";
 
 type StylizedButtonProps = {
   isOutlined: boolean;
-}
+} 
 
 export const StylizedButton = styled.button<StylizedButtonProps>`
   height: 50px;
   border-radius: 8px;
   font-weight: 500;
-  background-color: ${({ isOutlined }) => isOutlined ? '#FFF' : '#835afd'};
-  color: ${({ isOutlined }) => isOutlined ? '#835afd' : '#FFF'};
+  background-color: ${({ isOutlined, theme }) => isOutlined ? '#FFF' : theme.colors.primary};
+  color: ${({ isOutlined, theme }) => isOutlined ? theme.colors.primary : '#FFF'};
   padding: 0 32px;
 
   display: flex;
@@ -17,7 +17,7 @@ export const StylizedButton = styled.button<StylizedButtonProps>`
   align-items: center;
   
   cursor: pointer;
-  border: ${({ isOutlined }) => isOutlined ? '1px solid #835afd' : 0};
+  border: ${({ isOutlined, theme }) => isOutlined ? `1px solid ${theme.colors.primary}` : 0};
 
   transition: filter 0.2s;
 
@@ -39,7 +39,7 @@ export const StylizedButton = styled.button<StylizedButtonProps>`
     height: 50px;
     border-radius: 8px;
     font-weight: 500;
-    background-color: #ea4335;
+    background-color: ${props => props.theme.colors.secondary};
     color: white;
 
     display: flex;

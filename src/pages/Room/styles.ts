@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 export const Header = styled.header`
   padding: 24px;
-  border-bottom: 1px solid #e2e2e2;
+  border-bottom: 1px solid ${props => props.theme.colors.quaternary};
 
   .content {
     max-width: 1120px;
@@ -56,12 +56,12 @@ export const RoomTitle = styled.div`
   h1 {
     font-family: 'Poppins', sans-serif;
     font-size: 24px;
-    color: #29292e;
+    color: ${props => props.theme.colors.text_primary};
   }
 
   span {
     margin-left: 16px;
-    background-color: #e559f9;
+    background-color: ${props => props.theme.colors.tertiary};
     border-radius: 9999px;
     padding: 8px 16px;
     color: white;
@@ -76,7 +76,7 @@ export const Form = styled.form`
     border: 0;
     padding: 16px;
     border-radius: 8px;
-    background-color: #fefefe;
+    background-color: ${props => props.theme.colors.quinary};
     box-shadow: 0 2px 12px rgba(0, 0, 0, 0.04);
     resize: vertical;
     min-height: 130px;
@@ -101,7 +101,7 @@ export const FormFooter = styled.div`
 
     span {
       margin-left: 8px;
-      color: #29292e;
+      color: ${props => props.theme.colors.text_primary};
       font-weight: 500;
       font-size: 14px;
     }
@@ -109,13 +109,13 @@ export const FormFooter = styled.div`
 
   > span {
     font-size: 14px;
-    color: #737380;
+    color: ${props => props.theme.colors.text_secondary};
     font-weight: 500;
 
   button {
     background-color: transparent;
     border: 0;
-    color: #835AFD;
+    color: ${props => props.theme.colors.primary};
     text-decoration: underline;
     font-size: 14px;
     font-weight: 500;

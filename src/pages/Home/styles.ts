@@ -41,7 +41,7 @@ export const Form = styled.form`
     border-radius: 8px;
     padding: 0 16px;
     background-color: white;
-    border: 1px solid #a8a8b3;
+    border: 1px solid ${props => props.theme.colors.text_tertiary};
   }
 
   button {
@@ -55,7 +55,7 @@ export const Form = styled.form`
 
 export const Separator = styled.div`
   font-size: 14px;
-  color: #a8a8b3;
+  color: ${props => props.theme.colors.text_tertiary};
 
   margin: 32px 0;
   display: flex;
@@ -65,7 +65,7 @@ export const Separator = styled.div`
     content: '';
     flex: 1;
     height: 1px;
-    background-color: #a8a8b3;
+    background-color: ${props => props.theme.colors.text_tertiary};
     margin-right: 16px;
   }
 
@@ -73,7 +73,7 @@ export const Separator = styled.div`
     content: '';
     flex: 1;
     height: 1px;
-    background-color: #a8a8b3;
+    background-color: ${props => props.theme.colors.text_tertiary};
     margin-left: 16px;
   }
 `

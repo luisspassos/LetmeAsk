@@ -6,20 +6,20 @@ type ContainerProps = {
 }
 
 export const Container = styled.div<ContainerProps>`
-  background-color: ${({isHighlighted, isAnswered})=> 
-   isAnswered ? '#DBDCDD' : isHighlighted ? '#F4F0FF' : '#fefefe'
+  background-color: ${({isHighlighted, isAnswered, theme})=> 
+   isAnswered ? theme.colors.senary : isHighlighted ? theme.colors.septenary : theme.colors.quinary
   };
   border-radius: 8px;
   box-shadow: 0 2px 12px rgba(0, 0, 0, 0.04);
   padding: 24px;
-  border: ${({isHighlighted, isAnswered})=> isHighlighted && !isAnswered ? ' 1px solid #835afd' : 0};
+  border: ${({isHighlighted, isAnswered, theme})=> isHighlighted && !isAnswered ? `1px solid ${theme.colors.primary}` : 0};
 
   & + div {
     margin-top: 8px;
   }
 
   p {
-    color: #29292e;
+    color: ${props => props.theme.colors.text_primary}
   }
 `
 
@@ -42,7 +42,7 @@ export const Footer = styled.footer<ContainerProps>`
 
     span {
       margin-left: 8px;
-      color: ${({isHighlighted, isAnswered})=> isHighlighted && !isAnswered ? '#29292e' : '#737380'};
+      color: ${({isHighlighted, isAnswered, theme})=> isHighlighted && !isAnswered ? theme.colors.text_primary : theme.colors.text_secondary};
       font-size: 14px;
     }
   }
@@ -61,14 +61,14 @@ export const Footer = styled.footer<ContainerProps>`
     &.like-button {
       display: flex;
       align-items: flex-end;
-      color: #737380;
+      color: ${props => props.theme.colors.text_secondary};
       gap: 8px;
 
       &.liked {
-        color: #835afd;
+        color: ${props => props.theme.colors.primary};
 
         svg path{
-          stroke: #835afd;
+          stroke: ${props => props.theme.colors.primary};
         }
       }
     }
