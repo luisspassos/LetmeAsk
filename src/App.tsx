@@ -13,25 +13,35 @@ import { light } from './styles/themes/light'
 import { dark } from './styles/themes/dark'
 import { ToggleThemeProvider } from './contexts/ToggleThemeContext';
 
-import { usePersistedState } from './hooks/usePersistedState';
+import { usePersistedState } from './hooks/useGetTheme';
 import { useThemeDetector } from './hooks/useThemeDetector';
+import { useState } from 'react';
 
 function App() {
 
-  const isDarkTheme = useThemeDetector() ? dark : light;
+  const checkTheme = useThemeDetector() ? dark : light;
+  let initialTheme = checkTheme;
+  const storedTheme = localStorage.getItem('theme');
 
-  const [theme, setTheme] = usePersistedState<DefaultTheme>('theme', isDarkTheme)
+  if(storedTheme) {
+    initialTheme = JSON.parse(storedTheme)
+  }
+
+  // const [theme, setTheme] = usePersistedState<DefaultTheme>('theme', isDarkTheme)
+
+  const [theme, setTheme] = useState({state: initialTheme, save: false});
 
   return (
     <BrowserRouter>
       <AuthContextProvider>
         <ToggleThemeProvider theme={{
-          state: theme,
+          state: theme.state,
           light,
           dark,
+          save: theme.save,
           setTheme
         }}>
-          <ThemeProvider theme={theme}>
+          <ThemeProvider theme={theme.state}>
             <GlobalStyle />
             <Routes>
               <Route path="/" element={<Home />}/>

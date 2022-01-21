@@ -11,12 +11,12 @@ import { ToggleThemeContext } from '../../contexts/ToggleThemeContext'
 export function Switcher() {
 
   const { colors, title } = useContext(ThemeContext)
-  const toggleTheme = useContext(ToggleThemeContext)
+  const toggleAndSaveTheme = useContext(ToggleThemeContext)
 
   return(
     <SwitchWrapper>
       <Switch 
-        onChange={toggleTheme}
+        onChange={toggleAndSaveTheme}
         checked={title === 'dark'}
         offColor={colors.switcher_background}
         onColor={colors.switcher_background}
