@@ -24,6 +24,7 @@ declare module 'styled-components' {
       switcher_background: string;
 
       brightness: string;
+      placeholder: string;
   
       text_primary: string;
       text_secondary: string;

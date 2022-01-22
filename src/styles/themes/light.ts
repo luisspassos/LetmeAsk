@@ -21,6 +21,7 @@ export const light = {
     switcher_background: '#555',
 
     brightness: 'brightness(0.9)',
+    placeholder: 'auto',
 
     // finished here
 

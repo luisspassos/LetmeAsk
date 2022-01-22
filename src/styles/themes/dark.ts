@@ -21,6 +21,7 @@ export const dark = {
     switcher_background: '#555',
 
     brightness: 'brightness(1.1)',
+    placeholder: '#FFFFFF66',
 
     text_primary: '#f8f8f8',
     text_tertiary: '#f8f8f1',
