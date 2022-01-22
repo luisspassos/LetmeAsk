@@ -50,7 +50,7 @@ export const Form = styled.form`
     height: 50px;
     border-radius: 8px;
     padding: 0 16px;
-    background-color: white;
+    background-color: ${props => props.theme.title === 'light' ? 'white' : 'auto'};
     border: 1px solid ${props => props.theme.colors.text_tertiary};
   }
 

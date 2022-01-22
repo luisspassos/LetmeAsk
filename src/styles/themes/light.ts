@@ -12,6 +12,7 @@ export const light = {
     senary: '#DBDCDD',
     septenary: '#F4F0FF',
     octonary: '#f8f8f8',
+    nonary: '#FFF',
 
     switcher_icon: '#F2B705',
     switcher_background: '#555',

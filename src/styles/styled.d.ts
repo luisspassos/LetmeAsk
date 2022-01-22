@@ -15,6 +15,7 @@ declare module 'styled-components' {
       senary: string;
       septenary: string;
       octonary: string;
+      nonary: string;
   
       switcher_icon: string;
       switcher_background: string;

@@ -4,22 +4,25 @@ export const dark = {
   colors: {
     background:'#121212',
 
-    primary: '#835afd',
-    secondary: '#ea4335',
-    tertiary: '#E559F9',
-    quaternary: '#e2e2e2',
-    quinary: '#fefefe',
-    senary: '#DBDCDD',
-    septenary: '#F4F0FF',
+    primary: '#5E41B5',
+    secondary: '#C93B2E',
+    tertiary: '#CD50DE',
+    quaternary: '#666',
+    quinary: '#252525',
+    senary: '#141414',
+    septenary: '#9C98A3',
     octonary: '#f8f8f8',
+    nonary: '#555',
 
     switcher_icon: '#F2B705',
     switcher_background: '#555',
 
-    // finished here
-
-    text_primary: '#29292E',
-    text_tertiary: '#a8a8b3',
-    text_secondary: '#737380',
+    text_primary: '#f8f8f8',
+    text_tertiary: '#f8f8f1',
+    text_secondary: '#e1e1e1',
   }
 }
+
+// ver local storage
+// ver colorações direito
+// ver imagem trocando direito

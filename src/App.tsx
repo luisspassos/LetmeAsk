@@ -7,29 +7,17 @@ import { AdminRoom } from './pages/AdminRoom';
 
 import { AuthContextProvider } from './contexts/AuthContext'
 
-import { ThemeProvider, DefaultTheme } from 'styled-components'
+import { ThemeProvider } from 'styled-components'
 import { GlobalStyle } from './styles/global'
 import { light } from './styles/themes/light'
 import { dark } from './styles/themes/dark'
 import { ToggleThemeProvider } from './contexts/ToggleThemeContext';
 
-import { usePersistedState } from './hooks/useGetTheme';
-import { useThemeDetector } from './hooks/useThemeDetector';
-import { useState } from 'react';
+import { useTheme } from './hooks/useTheme';
 
 function App() {
 
-  const checkTheme = useThemeDetector() ? dark : light;
-  let initialTheme = checkTheme;
-  const storedTheme = localStorage.getItem('theme');
-
-  if(storedTheme) {
-    initialTheme = JSON.parse(storedTheme)
-  }
-
-  // const [theme, setTheme] = usePersistedState<DefaultTheme>('theme', isDarkTheme)
-
-  const [theme, setTheme] = useState({state: initialTheme, save: false});
+  const [theme, setTheme] = useTheme();
 
   return (
     <BrowserRouter>
