@@ -14,8 +14,8 @@ export function Switcher() {
   const { state } = useTheme()
 
   function toggleTheme() {
-    state.setTheme(state.theme === 'dark' ? 'light' : 'dark')
     state.setSave(true)
+    state.setTheme(state.theme === 'dark' ? 'light' : 'dark')
   }
 
   return(

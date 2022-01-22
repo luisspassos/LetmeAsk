@@ -8,8 +8,8 @@ export const StylizedButton = styled.button<StylizedButtonProps>`
   height: 50px;
   border-radius: 8px;
   font-weight: 500;
-  background-color: ${({ isOutlined, theme }) => isOutlined ? '#FFF' : theme.colors.primary};
-  color: ${({ isOutlined, theme }) => isOutlined ? theme.colors.primary : '#FFF'};
+  background-color: ${({ isOutlined, theme }) => isOutlined ? theme.colors.nonary : theme.colors.primary};
+  color: ${({ isOutlined, theme }) => isOutlined ? theme.colors.eleventh : '#FFF'};
   padding: 0 32px;
 
   display: flex;
@@ -26,7 +26,7 @@ export const StylizedButton = styled.button<StylizedButtonProps>`
   }
 
   &:not(:disabled):hover {
-    filter: brightness(0.9);
+    filter: ${props => props.theme.colors.brightness};
   }
 
   &:disabled {
@@ -56,7 +56,7 @@ export const StylizedButton = styled.button<StylizedButtonProps>`
     }
 
     &:hover {
-      filter: brightness(0.9);
+      filter: ${props => props.theme.colors.brightness};
     }
   }
 `

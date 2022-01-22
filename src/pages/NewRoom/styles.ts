@@ -37,7 +37,7 @@ export const MainContent = styled.div`
   }
 
   a {
-    color: ${props => props.theme.colors.tertiary};
+    color: ${props => props.theme.colors.twelfth};
   }
 `
 

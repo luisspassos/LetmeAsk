@@ -17,11 +17,13 @@ declare module 'styled-components' {
       octonary: string;
       nonary: string;
       denary: string;
+      eleventh: string;
+      twelfth: string;
   
       switcher_icon: string;
       switcher_background: string;
-  
-      // finished here
+
+      brightness: string;
   
       text_primary: string;
       text_secondary: string;

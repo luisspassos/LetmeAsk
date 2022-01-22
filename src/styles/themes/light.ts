@@ -14,9 +14,13 @@ export const light = {
     octonary: '#f8f8f8',
     nonary: '#FFF',
     denary: '#FFF',
+    eleventh: '#835afd',
+    twelfth: '#E559F9',
 
     switcher_icon: '#F2B705',
     switcher_background: '#555',
+
+    brightness: 'brightness(0.9)',
 
     // finished here
 

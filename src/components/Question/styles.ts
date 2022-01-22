@@ -74,7 +74,7 @@ export const Footer = styled.footer<ContainerProps>`
     }
 
     &:hover {
-      filter: brightness(0.7);
+      filter: ${props => props.theme.colors.brightness};
     }
   }
 
