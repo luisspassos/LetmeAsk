@@ -39,7 +39,7 @@ export function ColorThemeProvider({children}: ColorThemeProviderProps) {
     if(save) {
       localStorage.setItem('theme', theme);
     }
-  }, [theme])
+  }, [theme, save])
 
   return(
     <ColorThemeContext.Provider value={{
