@@ -5,6 +5,6 @@ export const StylizedInput = styled.input`
   height: 50px;
   border-radius: 8px;
   padding: 0 16px;
-  background-color: ${props => props.theme.title === 'light' ? 'white' : 'auto'};
+  background-color: ${props => props.theme.colors.denary};
   border: 1px solid ${props => props.theme.colors.text_tertiary};
 `

@@ -9,27 +9,17 @@ import { AuthContextProvider } from './contexts/AuthContext'
 
 import { ThemeProvider } from 'styled-components'
 import { GlobalStyle } from './styles/global'
-import { light } from './styles/themes/light'
-import { dark } from './styles/themes/dark'
-import { ToggleThemeProvider } from './contexts/ToggleThemeContext';
 
-import { useTheme } from './hooks/useTheme';
+import { useTheme } from './hooks/useTheme'
 
 function App() {
 
-  const [theme, setTheme] = useTheme();
+  const {state, themes} = useTheme()
 
   return (
     <BrowserRouter>
       <AuthContextProvider>
-        <ToggleThemeProvider theme={{
-          state: theme.state,
-          light,
-          dark,
-          save: theme.save,
-          setTheme
-        }}>
-          <ThemeProvider theme={theme.state}>
+          <ThemeProvider theme={state.theme === 'dark' ? themes.dark : themes.light}>
             <GlobalStyle />
             <Routes>
               <Route path="/" element={<Home />}/>
@@ -38,7 +28,6 @@ function App() {
               <Route path="/admin/rooms/:id" element={<AdminRoom />} />
             </Routes>
           </ThemeProvider>
-        </ToggleThemeProvider>
       </AuthContextProvider>
     </BrowserRouter>
   );

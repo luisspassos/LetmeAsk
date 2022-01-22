@@ -13,6 +13,7 @@ export const dark = {
     septenary: '#9C98A3',
     octonary: '#f8f8f8',
     nonary: '#555',
+    denary: '#252525',
 
     switcher_icon: '#F2B705',
     switcher_background: '#555',

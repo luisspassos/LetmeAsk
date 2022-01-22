@@ -6,17 +6,22 @@ import { BsMoonStarsFill, BsFillSunFill } from 'react-icons/bs'
 
 import { ThemeContext } from 'styled-components'
 import { SwitchWrapper } from './styles'
-import { ToggleThemeContext } from '../../contexts/ToggleThemeContext'
+import { useTheme } from '../../hooks/useTheme'
 
 export function Switcher() {
 
   const { colors, title } = useContext(ThemeContext)
-  const toggleAndSaveTheme = useContext(ToggleThemeContext)
+  const { state } = useTheme()
+
+  function toggleTheme() {
+    state.setTheme(state.theme === 'dark' ? 'light' : 'dark')
+    state.setSave(true)
+  }
 
   return(
     <SwitchWrapper>
       <Switch 
-        onChange={toggleAndSaveTheme}
+        onChange={toggleTheme}
         checked={title === 'dark'}
         offColor={colors.switcher_background}
         onColor={colors.switcher_background}

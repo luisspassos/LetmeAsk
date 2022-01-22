@@ -1,37 +1,8 @@
-import { useState, Dispatch, SetStateAction } from 'react';
+import { useContext } from "react";
+import { ColorThemeContext } from '../contexts/ColorThemeContext'
 
-import { useThemeDetector } from './useThemeDetector';
+export function useTheme() {
+  const value = useContext(ColorThemeContext);
 
-import { light } from '../styles/themes/light'
-import { dark } from '../styles/themes/dark'
-
-import { DefaultTheme } from 'styled-components'
-
-type Response = [
-  {
-    state: DefaultTheme;
-    save: boolean;
-  },
-  Dispatch<SetStateAction<{
-    state: DefaultTheme;
-    save: boolean;
-  }>>
-]
-
-export function useTheme():Response {
-  const checkTheme = useThemeDetector() ? dark : light;
-  let initialTheme = checkTheme;
-  const storedTheme = localStorage.getItem('theme');
-
-  if(storedTheme) {
-    initialTheme = JSON.parse(storedTheme)
-  }
-
-  const [theme, setTheme] = useState({state: initialTheme, save: false});
-  
-  setInterval(()=> {
-    console.log(theme)
-  }, 1000)
-
-  return [theme, setTheme]
+  return value
 }
