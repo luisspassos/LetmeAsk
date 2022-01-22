@@ -11,30 +11,18 @@ export const Header = styled.header`
     justify-content: space-between;
     align-items: center;
 
-    > img {
-      max-height: 45px;
-      margin-right: 10px;
-    }
-
     > div {
       display: flex;
       align-items: center;
       flex-wrap: wrap;
       justify-content: end;
       gap: 16px;
+      margin-left: 20px;
 
       button {
         height: 40px;
       }
-    }
-
-    @media (max-width: 450px) {
-      > img {
-      display: none;
-    }
-  } 
-      
-      
+    }  
   }
 `
 

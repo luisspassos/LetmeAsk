@@ -2,9 +2,6 @@ import { FormEvent, useState } from 'react'
 
 import { Link, useNavigate } from 'react-router-dom'
 
-import LogoImg from '../../assets/images/logo.svg'
-import LogoDarkImg from '../../assets/images/logo_dark.svg'
-
 import { Container, Form, MainContent } from './styles'
 
 import { Button } from '../../components/Button'
@@ -13,10 +10,9 @@ import { Aside } from '../../components/Aside'
 import { database } from '../../services/firebase'
 
 import { useAuth } from '../../hooks/useAuth'
-import { useTheme } from '../../hooks/useTheme'
+import { Logo } from '../../components/Logo'
 
 export function NewRoom() {
-    const [theme] = useTheme()
 
     const { user } = useAuth();
     const navigate = useNavigate()
@@ -45,7 +41,7 @@ export function NewRoom() {
             <Aside />
             <main>
                 <MainContent>
-                <img src={theme.state.title === 'dark' ? LogoDarkImg : LogoImg} alt="Letmeask" />
+                <Logo alignSelf='center'/>
                     <h2>Criar uma nova sala</h2>
                     <Form onSubmit={handleCreateRoom}>
                         <input 

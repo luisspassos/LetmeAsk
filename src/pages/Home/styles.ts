@@ -24,10 +24,6 @@ export const MainContent = styled.div`
   align-items: stretch;
   text-align: center;
 
-  > img {
-    align-self: center;
-  }
-
   h2 {
     font-size: 24px;
     margin: 64px 0 24px;

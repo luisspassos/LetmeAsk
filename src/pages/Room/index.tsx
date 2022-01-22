@@ -1,18 +1,15 @@
-import { FormEvent, useEffect, useState } from 'react';
+import { FormEvent, useState } from 'react';
 
 import { useParams } from 'react-router-dom'
 
-import LogoImg from '../../assets/images/logo.svg';
-import LogoDarkImg from '../../assets/images/logo_dark.svg';
-
 import { Button } from '../../components/Button';
+import { Logo } from '../../components/Logo';
 import { Question } from '../../components/Question';
 import { RoomCode } from '../../components/RoomCode';
 import { Switcher } from '../../components/Switcher'
 
 import { useAuth } from '../../hooks/useAuth';
 import { useRoom } from '../../hooks/useRoom';
-import { useTheme } from '../../hooks/useTheme';
 
 import { database } from '../../services/firebase';
 
@@ -23,8 +20,6 @@ type RoomParams = {
 }
 
 export function Room() {
-
-    const [theme] = useTheme()
 
     const { user } = useAuth()
 
@@ -78,7 +73,7 @@ export function Room() {
         <div id="page-room">
             <Header>
                 <div className="content">
-                    <img src={theme.state.title === 'dark' ? LogoDarkImg : LogoImg} alt="Letmeask" />
+                    <Logo maxHeight={45} className='itsInTheRoom'/>
                     <div className="endContent">
                         <RoomCode code={roomId} />
                         <Switcher />

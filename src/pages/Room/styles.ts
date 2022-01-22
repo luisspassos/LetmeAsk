@@ -11,10 +11,6 @@ export const Header = styled.header`
     justify-content: space-between;
     align-items: center;
 
-    > img {
-      max-height: 45px;
-    }
-
     > div {
       display: flex;
       flex-wrap: wrap-reverse;
@@ -23,12 +19,6 @@ export const Header = styled.header`
 
       button {
         height: 40px;
-      }
-    }
-
-      @media (max-width: 450px) {
-        > img {
-        display: none;
       }
     }
 

@@ -11,7 +11,6 @@ export function Button({isOutlined = false, ...props}: ButtonProps) {
     return (
         <StylizedButton 
             isOutlined={isOutlined}
-            // className={`button ${isOutlined ? 'outlined' : ''}`} 
             {...props} 
         />
     )

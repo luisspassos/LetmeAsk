@@ -1,7 +1,5 @@
 import { useNavigate, useParams } from 'react-router-dom'
 
-import LogoImg from '../../assets/images/logo.svg';
-import LogoDarkImg from '../../assets/images/logo_dark.svg';
 import deleteImg from '../../assets/images/delete.svg'
 import checkImg from '../../assets/images/check.svg'
 import answerImg from '../../assets/images/answer.svg'
@@ -10,9 +8,9 @@ import { Button } from '../../components/Button';
 import { Question } from '../../components/Question';
 import { RoomCode } from '../../components/RoomCode';
 import { Switcher } from '../../components/Switcher';
+import { Logo } from '../../components/Logo';
 
 import { useRoom } from '../../hooks/useRoom';
-import { useTheme } from '../../hooks/useTheme'
 
 import { Header, Main, QuestionList, RoomTitle } from './styles';
 
@@ -23,8 +21,6 @@ type RoomParams = {
 }
 
 export function AdminRoom() {
-
-  const [themes] = useTheme()
 
   const navigate = useNavigate()
   const params = useParams() as RoomParams
@@ -62,7 +58,7 @@ export function AdminRoom() {
     <div>
       <Header>
         <div className="content">
-          <img src={themes.state.title === 'dark' ? LogoDarkImg : LogoImg} alt="Letmeask" />
+          <Logo maxHeight={45} className='itsInTheRoom'/>
           <div>
             <RoomCode code={roomId} />
             <Button isOutlined onClick={handleEndRoom}>Encerrar sala</Button>
