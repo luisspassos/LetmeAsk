@@ -9,6 +9,7 @@ import { Container, MainContent, Form, Separator } from './styles'
 import { Button } from '../../components/Button'
 import { Aside } from '../../components/Aside'
 import { Logo } from '../../components/Logo'
+import { Input } from '../../components/Input'
 
 import { useAuth } from '../../hooks/useAuth'
 
@@ -63,7 +64,7 @@ export function Home() {
                     </Button>
                     <Separator>ou entre em uma sala</Separator>
                     <Form onSubmit={handleJoinRoom}>
-                        <input 
+                        <Input 
                             type="text"
                             placeholder='Digite o código da sala'
                             onChange={event => setRoomCode(event.target.value)}

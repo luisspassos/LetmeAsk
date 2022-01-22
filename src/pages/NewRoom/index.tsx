@@ -6,11 +6,12 @@ import { Container, Form, MainContent } from './styles'
 
 import { Button } from '../../components/Button'
 import { Aside } from '../../components/Aside'
+import { Logo } from '../../components/Logo'
+import { Input } from '../../components/Input'
 
 import { database } from '../../services/firebase'
 
 import { useAuth } from '../../hooks/useAuth'
-import { Logo } from '../../components/Logo'
 
 export function NewRoom() {
 
@@ -44,7 +45,7 @@ export function NewRoom() {
                 <Logo alignSelf='center'/>
                     <h2>Criar uma nova sala</h2>
                     <Form onSubmit={handleCreateRoom}>
-                        <input 
+                        <Input
                             type="text"
                             placeholder='Nome da sala'
                             onChange={event => setNewRoom(event.target.value)}

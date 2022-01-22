@@ -14,7 +14,7 @@ type LogoProps = {
 export function Logo({alignSelf, maxHeight, ...props}: LogoProps) {
 
   const [theme] = useTheme();
-
+  
   return (
     <StylizedLogo 
       alignSelf={alignSelf}

@@ -9,10 +9,12 @@ import { Question } from '../../components/Question';
 import { RoomCode } from '../../components/RoomCode';
 import { Switcher } from '../../components/Switcher';
 import { Logo } from '../../components/Logo';
+import { RoomTitle } from '../../components/RoomTitle';
+import { QuestionList } from '../../components/QuestionList';
 
 import { useRoom } from '../../hooks/useRoom';
 
-import { Header, Main, QuestionList, RoomTitle } from './styles';
+import { Header, Main } from './styles';
 
 import { database } from '../../services/firebase';
 
@@ -68,13 +70,7 @@ export function AdminRoom() {
       </Header>
 
       <Main>
-        <RoomTitle>
-          <h1>
-            Sala {title}
-          </h1>
-          {questions.length > 0 && <span>{questions.length} pergunta(s)</span>}
-        </RoomTitle>
-
+        <RoomTitle questions={questions} title={title}/>
         <QuestionList>
           {questions.map(question => {
             return (

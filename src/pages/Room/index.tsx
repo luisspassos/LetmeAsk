@@ -6,14 +6,16 @@ import { Button } from '../../components/Button';
 import { Logo } from '../../components/Logo';
 import { Question } from '../../components/Question';
 import { RoomCode } from '../../components/RoomCode';
-import { Switcher } from '../../components/Switcher'
+import { Switcher } from '../../components/Switcher';
+import { RoomTitle } from '../../components/RoomTitle';
+import { QuestionList } from '../../components/QuestionList';
 
 import { useAuth } from '../../hooks/useAuth';
 import { useRoom } from '../../hooks/useRoom';
 
 import { database } from '../../services/firebase';
 
-import { Form, FormFooter, Header, Main, QuestionList, RoomTitle } from './styles'
+import { Form, FormFooter, Header, Main } from './styles'
 
 type RoomParams = {
     id: string;
@@ -82,13 +84,7 @@ export function Room() {
             </Header>
 
             <Main>
-                <RoomTitle>
-                    <h1>
-                        Sala {title}
-                    </h1>
-                    {questions.length > 0 && <span>{questions.length} pergunta(s)</span>}
-                </RoomTitle>
-
+                <RoomTitle title={title} questions={questions}/>
                 <Form onSubmit={handleSendQuestion}>
                     <textarea
                         placeholder='O que você quer perguntar?'

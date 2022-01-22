@@ -28,6 +28,10 @@ export function useTheme():Response {
   }
 
   const [theme, setTheme] = useState({state: initialTheme, save: false});
+  
+  setInterval(()=> {
+    console.log(theme)
+  }, 1000)
 
   return [theme, setTheme]
 }
