@@ -30,7 +30,7 @@ export function Room() {
     const params = useParams() as RoomParams
     const roomId = params.id;
 
-    // const { title, questions } = useRoom(roomId)
+    const { title, questions } = useRoom(roomId)
 
     async function handleSendQuestion(event: FormEvent) {
         // event.preventDefault()
@@ -84,7 +84,7 @@ export function Room() {
             </Header>
 
             <Main>
-                {/* <RoomTitle title={title} questions={questions}/> */}
+                <RoomTitle title={title} questions={questions}/>
                 <Form onSubmit={handleSendQuestion}>
                     <textarea
                         placeholder='O que você quer perguntar?'
