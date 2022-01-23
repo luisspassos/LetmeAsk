@@ -4,7 +4,7 @@ import { database } from "../services/firebase"
 
 import { useAuth } from "./useAuth";
 
-type FirebaseQuestions = Record<string, {
+type QuestionData = {
   author: {
     name: string,
     avatar: string
@@ -12,10 +12,8 @@ type FirebaseQuestions = Record<string, {
   content: string,
   isAnswered: boolean,
   isHighlighted: boolean,
-  likes: Record<string, {
-    authorId: string
-  }>
-}>;
+  likes: string[]
+};
 
 export type Question = {
   id: string,
@@ -44,36 +42,41 @@ export function useRoom(roomId: string) {
     const roomRef = database.collection('rooms').doc(roomId)
 
     const roomData = (await roomRef.get()).data() as RoomData
-
     setTitle(roomData.title)
+
+    const unsubscribe = roomRef.collection('questions').orderBy("timestamp").onSnapshot(questions => {
+
+      const questionsArr: Array<Question> = [];
+
+      questions.forEach(question => {
+
+        const questionData = question.data() as QuestionData
+
+        const questionObj = {
+          id: question.id,
+          author: questionData.author,
+          content: questionData.content,
+          isHighlighted: questionData.isHighlighted,
+          isAnswered: questionData.isAnswered,
+          likeCount: (questionData.likes ?? []).length,
+          likeId: (questionData.likes ?? []).find(likeId => likeId === user?.id)
+        }
+        
+        questionsArr.push(questionObj)
+
+      })
+
+      setQuestions(questionsArr)
+
+    })
+
+    return () => {
+      unsubscribe()
+    }
   }
 
   useEffect(() => {
-
     getData()
-
-  //   const unsubscribe = roomRef.onSnapshot(room => {
-  //     const databaseRoom = room.data() as RoomData
-  //     // const firebaseQuestions: FirebaseQuestions = databaseRoom?.questions ?? {};
-  //     //     const parsedQuestions = Object.entries(firebaseQuestions).map(([key, value]) => {
-  //     //       return {
-  //     //         id: key,
-  //     //         content: value.content,
-  //     //         author: value.author,
-  //     //         isHighlighted: value.isHighlighted,
-  //     //         isAnswered: value.isAnswered,
-  //     //         likeCount: Object.values(value.likes ?? {}).length,
-  //     //         likeId: Object.entries(value.likes ?? {}).find(([key, like]) => like.authorId === user?.id)?.[0]
-  //     //       }
-  //     //     })
-
-  //     //     setQuestions(parsedQuestions)
-  //     //   })
-
-  //     return () => {
-  //       unsubscribe()
-  //     }
-  //   })
   }, [roomId, user?.id])
 
   return { questions, title }

@@ -13,7 +13,7 @@ import { QuestionList } from '../../components/QuestionList';
 import { useAuth } from '../../hooks/useAuth';
 import { useRoom } from '../../hooks/useRoom';
 
-import { database } from '../../services/firebase';
+import { database, firebase } from '../../services/firebase';
 
 import { Form, FormFooter, Header, Main } from './styles'
 
@@ -50,7 +50,8 @@ export function Room() {
                 avatar: user.avatar,
             },
             isHighlighted: false,
-            isAnswered: false
+            isAnswered: false,
+            timestamp: new Date().getTime()
         }
 
         await database.collection('rooms').doc(roomId).collection('questions').add(question)
@@ -61,13 +62,17 @@ export function Room() {
 
     async function handleLikeQuestion(questionId: string, likeId: string | undefined) {
 
-        // if (likeId) {
-        //     await database.ref(`rooms/${roomId}/questions/${questionId}/likes/${likeId}`).remove()
-        // } else {
-        //     await database.ref(`rooms/${roomId}/questions/${questionId}/likes`).push({
-        //         authorId: user?.id
-        //     })
-        // }
+        if (likeId) {
+            
+            await database.collection('rooms').doc(roomId).collection('questions').doc(questionId).update({
+                likes: firebase.firestore.FieldValue.arrayRemove(likeId)
+            })
+
+        } else {
+            await database.collection('rooms').doc(roomId).collection('questions').doc(questionId).update({
+                likes: firebase.firestore.FieldValue.arrayUnion(user?.id)
+            })
+        }
 
     }
 

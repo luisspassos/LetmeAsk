@@ -28,32 +28,35 @@ export function AdminRoom() {
   const params = useParams() as RoomParams
   const roomId = params.id;
 
-  // const { title, questions } = useRoom(roomId)
+  const { title, questions } = useRoom(roomId)
+
+  const questionsRef = database.collection('rooms').doc(roomId).collection('questions')
 
   async function handleEndRoom() {
-    // await database.ref(`rooms/${roomId}`).update({
-    //   endedAt: new Date(),
-    // })
+  
+    await database.collection('rooms').doc(roomId).update({
+      endedAt: new Date()
+    })
 
     navigate('/')
   }
 
   async function handleDeleteQuestion(questionId: string) {
-    // if (window.confirm('Tem certeza que você deseja excluir esta pergunta?')) {
-    //   await database.ref(`rooms/${roomId}/questions/${questionId}`).remove()
-    // }
+    if (window.confirm('Tem certeza que você deseja excluir esta pergunta?')) {
+      await questionsRef.doc(questionId).delete()
+    }
   }
 
   async function handleCheckQuestionAsAnswered(questionId: string) {
-    // await database.ref(`rooms/${roomId}/questions/${questionId}`).update({
-    //   isAnswered: true
-    // })
+    await questionsRef.doc(questionId).update({
+      isAnswered: true
+    })
   }
 
   async function handleHighlightQuestion(questionId: string) {
-    // await database.ref(`rooms/${roomId}/questions/${questionId}`).update({
-    //   isHighlighted: true
-    // })
+    await questionsRef.doc(questionId).update({
+      isHighlighted: true
+    })
   }
 
   return (
@@ -70,9 +73,9 @@ export function AdminRoom() {
       </Header>
 
       <Main>
-        {/* <RoomTitle questions={questions} title={title}/> */}
+        <RoomTitle questions={questions} title={title}/>
         <QuestionList>
-          {/* {questions.map(question => {
+          {questions.map(question => {
             return (
               <Question
                 key={question.id}
@@ -107,7 +110,7 @@ export function AdminRoom() {
                 </button>
               </Question>
             )
-          })} */}
+          })}
         </QuestionList>
       </Main>
     </div>
