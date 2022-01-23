@@ -30,6 +30,11 @@ export type Question = {
   likeId: string | undefined;
 }
 
+type RoomData = {
+  title: string;
+  authorId: string;
+} | undefined
+
 export function useRoom(roomId: string) {
   const { user } = useAuth()
   const [questions, setQuestions] = useState<Question[]>([])
@@ -40,8 +45,10 @@ export function useRoom(roomId: string) {
     const roomRef = database.collection('rooms').doc(roomId)
 
     const unsubscribe = roomRef.onSnapshot(room => {
-      const databaseRoom = room.data()
-      //     const firebaseQuestions: FirebaseQuestions = databaseRoom.questions ?? {};
+      const databaseRoom = room.data<RoomData>()
+      // ver swr-firebase asjdijasdijoasjiodijasjdi
+      console.log(databaseRoom)
+      // const firebaseQuestions: FirebaseQuestions = databaseRoom?.questions ?? {};
       //     const parsedQuestions = Object.entries(firebaseQuestions).map(([key, value]) => {
       //       return {
       //         id: key,
@@ -54,7 +61,7 @@ export function useRoom(roomId: string) {
       //       }
       //     })
 
-      setTitle(databaseRoom?.title)
+      setTitle(databaseRoom.title)
       //     setQuestions(parsedQuestions)
       //   })
 

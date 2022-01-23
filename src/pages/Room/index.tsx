@@ -33,29 +33,29 @@ export function Room() {
     const { title, questions } = useRoom(roomId)
 
     async function handleSendQuestion(event: FormEvent) {
-        // event.preventDefault()
+        event.preventDefault()
 
-        // if (newQuestion.trim() === '') {
-        //     return;
-        // }
+        if (newQuestion.trim() === '') {
+            return;
+        }
 
-        // if (!user) {
-        //     throw new Error('You must be logged in')
-        // }
+        if (!user) {
+            throw new Error('You must be logged in')
+        }
 
-        // const question = {
-        //     content: newQuestion,
-        //     author: {
-        //         name: user.name,
-        //         avatar: user.avatar,
-        //     },
-        //     isHighlighted: false,
-        //     isAnswered: false
-        // }
+        const question = {
+            content: newQuestion,
+            author: {
+                name: user.name,
+                avatar: user.avatar,
+            },
+            isHighlighted: false,
+            isAnswered: false
+        }
 
-        // await database.ref(`rooms/${roomId}/questions`).push(question);
+        await database.collection('rooms').doc(roomId).collection('questions').add(question)
 
-        // setNewQuestion('')
+        setNewQuestion('')
 
     }
 
@@ -106,7 +106,7 @@ export function Room() {
                 </Form>
 
                 <QuestionList>
-                    {/* {questions.map(question => {
+                    {questions.map(question => {
                         return (
                             <Question
                                 key={question.id}
@@ -131,7 +131,7 @@ export function Room() {
                                 }
                             </Question>
                         )
-                    })} */}
+                    })}
                 </QuestionList>
             </Main>
         </div>
