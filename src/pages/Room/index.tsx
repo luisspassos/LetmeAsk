@@ -30,44 +30,44 @@ export function Room() {
     const params = useParams() as RoomParams
     const roomId = params.id;
 
-    const { title, questions } = useRoom(roomId)
+    // const { title, questions } = useRoom(roomId)
 
     async function handleSendQuestion(event: FormEvent) {
-        event.preventDefault()
+        // event.preventDefault()
 
-        if (newQuestion.trim() === '') {
-            return;
-        }
+        // if (newQuestion.trim() === '') {
+        //     return;
+        // }
 
-        if (!user) {
-            throw new Error('You must be logged in')
-        }
+        // if (!user) {
+        //     throw new Error('You must be logged in')
+        // }
 
-        const question = {
-            content: newQuestion,
-            author: {
-                name: user.name,
-                avatar: user.avatar,
-            },
-            isHighlighted: false,
-            isAnswered: false
-        }
+        // const question = {
+        //     content: newQuestion,
+        //     author: {
+        //         name: user.name,
+        //         avatar: user.avatar,
+        //     },
+        //     isHighlighted: false,
+        //     isAnswered: false
+        // }
 
-        await database.ref(`rooms/${roomId}/questions`).push(question);
+        // await database.ref(`rooms/${roomId}/questions`).push(question);
 
-        setNewQuestion('')
+        // setNewQuestion('')
 
     }
 
     async function handleLikeQuestion(questionId: string, likeId: string | undefined) {
 
-        if (likeId) {
-            await database.ref(`rooms/${roomId}/questions/${questionId}/likes/${likeId}`).remove()
-        } else {
-            await database.ref(`rooms/${roomId}/questions/${questionId}/likes`).push({
-                authorId: user?.id
-            })
-        }
+        // if (likeId) {
+        //     await database.ref(`rooms/${roomId}/questions/${questionId}/likes/${likeId}`).remove()
+        // } else {
+        //     await database.ref(`rooms/${roomId}/questions/${questionId}/likes`).push({
+        //         authorId: user?.id
+        //     })
+        // }
 
     }
 
@@ -84,7 +84,7 @@ export function Room() {
             </Header>
 
             <Main>
-                <RoomTitle title={title} questions={questions}/>
+                {/* <RoomTitle title={title} questions={questions}/> */}
                 <Form onSubmit={handleSendQuestion}>
                     <textarea
                         placeholder='O que você quer perguntar?'
@@ -106,7 +106,7 @@ export function Room() {
                 </Form>
 
                 <QuestionList>
-                    {questions.map(question => {
+                    {/* {questions.map(question => {
                         return (
                             <Question
                                 key={question.id}
@@ -131,7 +131,7 @@ export function Room() {
                                 }
                             </Question>
                         )
-                    })}
+                    })} */}
                 </QuestionList>
             </Main>
         </div>

@@ -27,14 +27,14 @@ export function NewRoom() {
             return;
         }
 
-        const roomRef = database.ref('rooms');
+        const roomRef = database.collection('rooms');
 
-        const firebaseRoom = await roomRef.push({
+        const firebaseRoom = await roomRef.add({
             title: newRoom,
             authorId: user?.id
         })
 
-        navigate(`/rooms/${firebaseRoom.key}`)
+        navigate(`/rooms/${firebaseRoom.id}`)
     }
 
     return (

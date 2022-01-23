@@ -37,32 +37,33 @@ export function useRoom(roomId: string) {
 
   useEffect(() => {
 
-    const roomRef = database.ref(`rooms/${roomId}`)
+    const roomRef = database.collection('rooms').doc(roomId)
 
-    roomRef.on('value', room => {
-      const databaseRoom = room.val()
-      const firebaseQuestions: FirebaseQuestions = databaseRoom.questions ?? {};
-      const parsedQuestions = Object.entries(firebaseQuestions).map(([key, value]) => {
-        return {
-          id: key,
-          content: value.content,
-          author: value.author,
-          isHighlighted: value.isHighlighted,
-          isAnswered: value.isAnswered,
-          likeCount: Object.values(value.likes ?? {}).length,
-          likeId: Object.entries(value.likes ?? {}).find(([key, like]) => like.authorId === user?.id)?.[0]
-        }
-      })
+    const unsubscribe = roomRef.onSnapshot(room => {
+      const databaseRoom = room.data()
+  //     const firebaseQuestions: FirebaseQuestions = databaseRoom.questions ?? {};
+  //     const parsedQuestions = Object.entries(firebaseQuestions).map(([key, value]) => {
+  //       return {
+  //         id: key,
+  //         content: value.content,
+  //         author: value.author,
+  //         isHighlighted: value.isHighlighted,
+  //         isAnswered: value.isAnswered,
+  //         likeCount: Object.values(value.likes ?? {}).length,
+  //         likeId: Object.entries(value.likes ?? {}).find(([key, like]) => like.authorId === user?.id)?.[0]
+  //       }
+  //     })
 
       setTitle(databaseRoom.title)
-      setQuestions(parsedQuestions)
-    })
+  //     setQuestions(parsedQuestions)
+  //   })
 
-    return () => {
-      roomRef.off('value');
-    }
+      return () => {
+        unsubscribe()
+      }
+    })
   }, [roomId, user?.id])
 
-  return { questions, title }
+  // return { questions, title }
 
 }
