@@ -19,7 +19,8 @@ export const Container = styled.div<ContainerProps>`
   }
 
   p {
-    color: ${props => props.theme.colors.text_primary}
+    color: ${props => props.theme.colors.text_primary};
+    word-break: break-word;
   }
 `
 

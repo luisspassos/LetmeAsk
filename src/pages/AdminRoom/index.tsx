@@ -13,10 +13,12 @@ import { RoomTitle } from '../../components/RoomTitle';
 import { QuestionList } from '../../components/QuestionList';
 
 import { useRoom } from '../../hooks/useRoom';
+import { useAuth } from '../../hooks/useAuth';
 
 import { Header, Main } from './styles';
 
 import { database } from '../../services/firebase';
+import { useEffect } from 'react';
 
 type RoomParams = {
   id: string;
@@ -28,7 +30,13 @@ export function AdminRoom() {
   const params = useParams() as RoomParams
   const roomId = params.id;
 
-  const { title, questions } = useRoom(roomId)
+  const { user } = useAuth()
+
+  const { title, questions, authorId } = useRoom(roomId)
+
+  const checkAdmin = user?.id === authorId
+
+  // verificar bug dos like e isso aq
 
   const questionsRef = database.collection('rooms').doc(roomId).collection('questions')
 
