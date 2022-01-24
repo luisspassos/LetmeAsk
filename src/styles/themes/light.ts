@@ -23,8 +23,6 @@ export const light = {
     brightness: 'brightness(0.9)',
     placeholder: 'auto',
 
-    // finished here
-
     text_primary: '#29292E',
     text_secondary: '#737380',
     text_tertiary: '#a8a8b3',

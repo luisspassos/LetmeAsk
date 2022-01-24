@@ -28,7 +28,3 @@ export const dark = {
     text_secondary: '#e1e1e1',
   }
 }
-
-// ver local storage
-// ver colorações direito
-// ver imagem trocando direito
