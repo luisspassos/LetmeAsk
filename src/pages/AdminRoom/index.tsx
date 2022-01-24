@@ -1,5 +1,6 @@
+import { useEffect, useState } from 'react';
 
-import { useNavigate, useParams } from 'react-router-dom'
+import { Navigate, useNavigate, useParams } from 'react-router-dom'
 
 import deleteImg from '../../assets/images/delete.svg'
 import checkImg from '../../assets/images/check.svg'
@@ -18,6 +19,7 @@ import { useRoom } from '../../hooks/useRoom';
 import { Header, Main } from './styles';
 
 import { database } from '../../services/firebase';
+import { useAuth } from '../../hooks/useAuth';
 
 type RoomParams = {
   id: string;
@@ -29,7 +31,25 @@ export function AdminRoom() {
   const params = useParams() as RoomParams
   const roomId = params.id;
 
-  const { title, questions } = useRoom(roomId)
+  const { user } = useAuth() 
+
+  const { title, questions, authorId } = useRoom(roomId)
+
+  const [isAdmin, setIsAdmin] = useState(true);
+
+  useEffect(() => {
+
+    const checkIsAdmin = user?.id === authorId;
+
+    if(authorId !== '' && !checkIsAdmin) {
+      setIsAdmin(false)
+    }
+
+    return ()=> {
+      setIsAdmin(true);
+    }
+
+  }, [authorId])
 
   const questionsRef = database.collection('rooms').doc(roomId).collection('questions')
 
@@ -61,6 +81,7 @@ export function AdminRoom() {
   }
 
   return (
+    isAdmin ? 
     <div>
       <Header>
         <div className="content">
@@ -115,5 +136,7 @@ export function AdminRoom() {
         </QuestionList>
       </Main>
     </div>
+    :
+    <Navigate to={`/rooms/${roomId}`}/>
   )
 }
