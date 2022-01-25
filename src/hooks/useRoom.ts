@@ -46,15 +46,15 @@ export function useRoom(roomId: string) {
     setTitle(roomData.title)
     setAuthorId(roomData.authorId)
 
-    const unsubscribe = roomRef.collection('questions').orderBy("timestamp").onSnapshot(questions => {
+    const unsubscribe = roomRef.collection('questions').orderBy("timestamp").onSnapshot(room => {
 
-      const questionsArr: Array<Question> = [];
+      const questionsArr = room.docs
 
-      questions.forEach(question => {
+      const parsedQuestions = questionsArr.map(question => {
 
         const questionData = question.data() as QuestionData
 
-        const questionObj = {
+        return {
           id: question.id,
           author: questionData.author,
           content: questionData.content,
@@ -63,12 +63,10 @@ export function useRoom(roomId: string) {
           likeCount: (questionData.likes ?? []).length,
           likeId: (questionData.likes ?? []).find(likeId => likeId === user?.id)
         }
-        
-        questionsArr.push(questionObj)
 
       })
 
-      setQuestions(questionsArr)
+      setQuestions(parsedQuestions)
 
     })
 
