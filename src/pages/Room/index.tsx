@@ -1,4 +1,4 @@
-import { FormEvent, useState } from 'react';
+import { FormEvent, useState, useEffect } from 'react';
 
 import { useParams } from 'react-router-dom'
 
@@ -21,6 +21,9 @@ type RoomParams = {
     id: string;
 }
 
+// ver aviso na tela home
+// ver redirect da pagina inexistente
+
 export function Room() {
 
     const { user, signInWithGoogle, canLogIn } = useAuth()
@@ -29,6 +32,10 @@ export function Room() {
 
     const params = useParams() as RoomParams
     const roomId = params.id;
+
+    useEffect(() => {
+
+    }, [])
 
     const { title, questions } = useRoom(roomId)
 

@@ -25,9 +25,7 @@ type RoomParams = {
   id: string;
 }
 
-// ver regras do firebase
-// ver visualização do botao de encerrar a sala
-// ver as cores
+// redirect do usuario
 
 export function AdminRoom() {
 
@@ -45,11 +43,13 @@ export function AdminRoom() {
 
     const checkIsAdmin = user?.id === authorId;
 
-    if(authorId !== '' && !checkIsAdmin) {
-      navigate(`/rooms/${roomId}`)
+    if(authorId !== '') {
+      if(!checkIsAdmin) {
+        navigate(`/rooms/${roomId}`)
+      } else {
+        setReleaseAdminRoles(true)
+      }
     }
-
-    setReleaseAdminRoles(true)
 
   }, [authorId])
 
@@ -57,9 +57,7 @@ export function AdminRoom() {
 
   async function handleEndRoom() {
   
-    await database.collection('rooms').doc(roomId).update({
-      endedAt: new Date()
-    })
+    await database.collection('rooms').doc(roomId).delete()
 
     navigate('/')
   }

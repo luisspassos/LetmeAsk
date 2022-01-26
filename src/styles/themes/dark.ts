@@ -10,7 +10,7 @@ export const dark = {
     quaternary: '#666',
     quinary: '#252525',
     senary: '#141414',
-    septenary: '#312f33',
+    septenary: '#030303',
     octonary: '#f8f8f8',
     nonary: '#555',
     denary: '#252525',
