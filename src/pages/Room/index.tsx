@@ -23,7 +23,7 @@ type RoomParams = {
 
 export function Room() {
 
-    const { user, signInWithGoogle } = useAuth()
+    const { user, signInWithGoogle, canLogIn } = useAuth()
 
     const [newQuestion, setNewQuestion] = useState('')
 
@@ -102,13 +102,16 @@ export function Room() {
                     />
 
                     <FormFooter>
-                        {user ?
+                        {canLogIn ?
+                            user ?
                             <div className="user-info">
                                 <img src={user.avatar} alt={user.name} />
                                 <span>{user.name}</span>
                             </div>
                             :
                             <span>Para enviar uma pergunta, <button onClick={login}>faça seu login</button>.</span>
+                            :
+                            <div></div>
                         }
                         <Button type='submit' disabled={!user}>Enviar pergunta</Button>
                     </FormFooter>

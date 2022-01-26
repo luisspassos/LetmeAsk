@@ -18,12 +18,12 @@ import { database } from '../../services/firebase'
 export function Home() {
     
     const navigate = useNavigate();
-    const { user, signInWithGoogle } = useAuth();
+    const { user, signInWithGoogle, canLogIn } = useAuth();
 
     const [roomCode, setRoomCode] = useState('');
 
     async function handleCreateRoom() {
-        if(!user) {
+        if(!user && canLogIn) {
             await signInWithGoogle()
         }
 

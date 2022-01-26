@@ -43,8 +43,11 @@ export function useRoom(roomId: string) {
     const roomRef = database.collection('rooms').doc(roomId)
 
     roomRef.get().then(room => {
-      setTitle(room.data()?.title)
-      setAuthorId(room.data()?.authorId)
+
+      const roomData = room.data() as RoomData
+
+      setTitle(roomData.title)
+      setAuthorId(roomData.authorId)
     })
 
     const unsubscribe = roomRef.collection('questions').orderBy("timestamp").onSnapshot(room => {

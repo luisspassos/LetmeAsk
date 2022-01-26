@@ -10,6 +10,7 @@ type User = {
 type AuthContextType = {
   user: User | undefined,
   signInWithGoogle: () => Promise<void>;
+  canLogIn: boolean;
 }
 
 type AuthContextProviderProps = {
@@ -21,6 +22,7 @@ export const AuthContext = createContext({} as AuthContextType)
 export function AuthContextProvider(props: AuthContextProviderProps) {
 
   const [user, setUser] = useState<User>()
+  const [canLogIn, setCanLogIn] = useState(false)
 
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged(user => {
@@ -36,7 +38,11 @@ export function AuthContextProvider(props: AuthContextProviderProps) {
           name: displayName,
           avatar: photoURL
         })
+
       }
+
+      setCanLogIn(true)
+      
     })
 
     return () => {
@@ -65,7 +71,7 @@ export function AuthContextProvider(props: AuthContextProviderProps) {
   }
 
   return (
-    <AuthContext.Provider value={{ user, signInWithGoogle }} >
+    <AuthContext.Provider value={{ user, signInWithGoogle, canLogIn }} >
       {props.children}
     </AuthContext.Provider>
   )

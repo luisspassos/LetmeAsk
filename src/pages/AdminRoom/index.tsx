@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 
-import { Navigate, useNavigate, useParams } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 
 import deleteImg from '../../assets/images/delete.svg'
 import checkImg from '../../assets/images/check.svg'
@@ -25,6 +25,10 @@ type RoomParams = {
   id: string;
 }
 
+// ver regras do firebase
+// ver visualização do botao de encerrar a sala
+// ver as cores
+
 export function AdminRoom() {
 
   const navigate = useNavigate()
@@ -35,19 +39,17 @@ export function AdminRoom() {
 
   const { title, questions, authorId } = useRoom(roomId)
 
-  const [isAdmin, setIsAdmin] = useState(true);
+  const [releaseAdminRoles, setReleaseAdminRoles] = useState(false);
 
   useEffect(() => {
 
     const checkIsAdmin = user?.id === authorId;
 
     if(authorId !== '' && !checkIsAdmin) {
-      setIsAdmin(false)
+      navigate(`/rooms/${roomId}`)
     }
 
-    return ()=> {
-      setIsAdmin(true);
-    }
+    setReleaseAdminRoles(true)
 
   }, [authorId])
 
@@ -81,14 +83,13 @@ export function AdminRoom() {
   }
 
   return (
-    isAdmin ? 
     <div>
       <Header>
         <div className="content">
           <Logo maxHeight={45} className='itsInTheRoom'/>
           <div>
             <RoomCode code={roomId} />
-            <Button isOutlined onClick={handleEndRoom}>Encerrar sala</Button>
+            {releaseAdminRoles && <Button isOutlined onClick={handleEndRoom}>Encerrar sala</Button>}
             <Switcher />
           </div>
         </div>
@@ -136,7 +137,5 @@ export function AdminRoom() {
         </QuestionList>
       </Main>
     </div>
-    :
-    <Navigate to={`/rooms/${roomId}`}/>
   )
 }
