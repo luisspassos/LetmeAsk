@@ -21,23 +21,20 @@ type RoomParams = {
     id: string;
 }
 
-// ver aviso na tela home
-// ver redirect da pagina inexistente
-
 export function Room() {
 
-    const { user, signInWithGoogle, canLogIn } = useAuth()
+    const params = useParams() as RoomParams
+    const roomId = params.id;    
+    
+    const { title, questions, render, checkIfTheRoomExists } = useRoom(roomId)
+    
+    useEffect(() => {
+        checkIfTheRoomExists()
+    }, [])
 
     const [newQuestion, setNewQuestion] = useState('')
 
-    const params = useParams() as RoomParams
-    const roomId = params.id;
-
-    useEffect(() => {
-
-    }, [])
-
-    const { title, questions } = useRoom(roomId)
+    const { user, signInWithGoogle, canLogIn } = useAuth()
 
     async function handleSendQuestion(event: FormEvent) {
         event.preventDefault()
@@ -46,10 +43,11 @@ export function Room() {
             return;
         }
 
+        
         if (!user) {
             throw new Error('You must be logged in')
         }
-
+        
         const question = {
             content: newQuestion,
             author: {
@@ -60,10 +58,10 @@ export function Room() {
             isAnswered: false,
             timestamp: new Date().getTime()
         }
-
-        await database.collection('rooms').doc(roomId).collection('questions').add(question)
-
+        
         setNewQuestion('')
+        
+        await database.collection('rooms').doc(roomId).collection('questions').add(question)
 
     }
 
@@ -88,7 +86,8 @@ export function Room() {
     }
 
     return (
-        <div id="page-room">
+        render ? (
+            <div id="page-room">
             <Header>
                 <div className="content">
                     <Logo maxHeight={45} className='itsInTheRoom'/>
@@ -154,5 +153,8 @@ export function Room() {
                 </QuestionList>
             </Main>
         </div>
+        )
+        :
+        <div></div>
     )
 }

@@ -25,19 +25,21 @@ type RoomParams = {
   id: string;
 }
 
-// redirect do usuario
-
 export function AdminRoom() {
 
   const navigate = useNavigate()
   const params = useParams() as RoomParams
   const roomId = params.id;
 
-  const { user } = useAuth() 
-
-  const { title, questions, authorId } = useRoom(roomId)
+  const { title, questions, authorId, checkIfTheRoomExists, render } = useRoom(roomId)
+  
+  const { user } = useAuth()
 
   const [releaseAdminRoles, setReleaseAdminRoles] = useState(false);
+
+  useEffect(() => {
+    checkIfTheRoomExists()
+  }, [])
 
   useEffect(() => {
 
@@ -81,6 +83,7 @@ export function AdminRoom() {
   }
 
   return (
+    render ? 
     <div>
       <Header>
         <div className="content">
@@ -135,5 +138,7 @@ export function AdminRoom() {
         </QuestionList>
       </Main>
     </div>
+    :
+    <div></div>
   )
 }

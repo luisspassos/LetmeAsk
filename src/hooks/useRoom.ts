@@ -4,6 +4,8 @@ import { database } from "../services/firebase"
 
 import { useAuth } from "./useAuth";
 
+import { useNavigate } from 'react-router-dom'
+
 type QuestionData = {
   author: {
     name: string,
@@ -35,9 +37,23 @@ type RoomData = {
 
 export function useRoom(roomId: string) {
   const { user } = useAuth()
+
+  const navigate = useNavigate()
+
   const [questions, setQuestions] = useState<Question[]>([])
   const [title, setTitle] = useState('')
   const [authorId, setAuthorId] = useState('');
+  const [render, setRender] = useState(false)
+
+  async function checkIfTheRoomExists() {
+    const roomRef = await database.collection('rooms').doc(roomId).get();
+
+    if (!roomRef.exists) {
+      navigate('/')
+    }
+
+    setRender(true)
+  }
 
   useEffect(() => {
     const roomRef = database.collection('rooms').doc(roomId)
@@ -79,6 +95,6 @@ export function useRoom(roomId: string) {
     }
   }, [roomId, user?.id])
 
-  return { questions, title, authorId }
+  return { questions, title, authorId, render, checkIfTheRoomExists }
 
 }

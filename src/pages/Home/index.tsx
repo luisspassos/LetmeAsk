@@ -44,11 +44,6 @@ export function Home() {
             return
         }
 
-        if(roomRef.data()?.endedAt) {
-            alert('Room already closed.');
-            return
-        }
-
         navigate(`/rooms/${roomCode}`)
     }
 
