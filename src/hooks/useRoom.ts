@@ -39,12 +39,13 @@ export function useRoom(roomId: string) {
   const [title, setTitle] = useState('')
   const [authorId, setAuthorId] = useState('');
 
-  async function getData() {
+  useEffect(() => {
     const roomRef = database.collection('rooms').doc(roomId)
 
-    const roomData = (await roomRef.get()).data() as RoomData
-    setTitle(roomData.title)
-    setAuthorId(roomData.authorId)
+    roomRef.get().then(room => {
+      setTitle(room.data()?.title)
+      setAuthorId(room.data()?.authorId)
+    })
 
     const unsubscribe = roomRef.collection('questions').orderBy("timestamp").onSnapshot(room => {
 
@@ -73,10 +74,6 @@ export function useRoom(roomId: string) {
     return () => {
       unsubscribe()
     }
-  }
-
-  useEffect(() => {
-    getData()
   }, [roomId, user?.id])
 
   return { questions, title, authorId }
