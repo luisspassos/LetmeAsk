@@ -1,6 +1,6 @@
 import { FormEvent, useState, useEffect } from 'react';
 
-import { useParams } from 'react-router-dom'
+import { useParams } from 'react-router-dom';
 
 import { Button } from '../../components/Button';
 import { Logo } from '../../components/Logo';
@@ -15,146 +15,175 @@ import { useRoom } from '../../hooks/useRoom';
 
 import { database, firebase } from '../../services/firebase';
 
-import { Form, FormFooter, Header, Main } from './styles'
+import { Form, FormFooter, Header, Main } from './styles';
 
 type RoomParams = {
-    id: string;
-}
+  id: string;
+};
 
 export function Room() {
+  const params = useParams() as RoomParams;
+  const roomId = params.id;
 
-    const params = useParams() as RoomParams
-    const roomId = params.id;    
-    
-    const { title, questions, render, checkIfTheRoomExists } = useRoom(roomId)
-    
-    useEffect(() => {
-        checkIfTheRoomExists()
-    }, [])
+  const { title, questions, render, checkIfTheRoomExists } = useRoom(roomId);
 
-    const [newQuestion, setNewQuestion] = useState('')
+  useEffect(() => {
+    checkIfTheRoomExists();
+  }, []);
 
-    const { user, signInWithGoogle, canLogIn } = useAuth()
+  const [newQuestion, setNewQuestion] = useState('');
 
-    async function handleSendQuestion(event: FormEvent) {
-        event.preventDefault()
+  const { user, signInWithGoogle, canLogIn } = useAuth();
 
-        if (newQuestion.trim() === '') {
-            return;
-        }
+  async function handleSendQuestion(event: FormEvent) {
+    event.preventDefault();
 
-        
-        if (!user) {
-            throw new Error('You must be logged in')
-        }
-        
-        const question = {
-            content: newQuestion,
-            author: {
-                name: user.name,
-                avatar: user.avatar,
-            },
-            isHighlighted: false,
-            isAnswered: false,
-            timestamp: new Date().getTime()
-        }
-        
-        setNewQuestion('')
-        
-        await database.collection('rooms').doc(roomId).collection('questions').add(question)
-
+    if (newQuestion.trim() === '') {
+      return;
     }
 
-    async function handleLikeQuestion(questionId: string, likeId: string | undefined) {
-
-        if (likeId) {
-            
-            await database.collection('rooms').doc(roomId).collection('questions').doc(questionId).update({
-                likes: firebase.firestore.FieldValue.arrayRemove(likeId)
-            })
-
-        } else {
-            await database.collection('rooms').doc(roomId).collection('questions').doc(questionId).update({
-                likes: firebase.firestore.FieldValue.arrayUnion(user?.id)
-            })
-        }
-
+    if (!user) {
+      throw new Error('You must be logged in');
     }
 
-    async function login() {
-        await signInWithGoogle()
+    const question = {
+      content: newQuestion,
+      author: {
+        name: user.name,
+        avatar: user.avatar,
+      },
+      isHighlighted: false,
+      isAnswered: false,
+      timestamp: new Date().getTime(),
+    };
+
+    setNewQuestion('');
+
+    await database
+      .collection('rooms')
+      .doc(roomId)
+      .collection('questions')
+      .add(question);
+  }
+
+  async function handleLikeQuestion(
+    questionId: string,
+    likeId: string | undefined
+  ) {
+    if (likeId) {
+      await database
+        .collection('rooms')
+        .doc(roomId)
+        .collection('questions')
+        .doc(questionId)
+        .update({
+          likes: firebase.firestore.FieldValue.arrayRemove(likeId),
+        });
+    } else {
+      await database
+        .collection('rooms')
+        .doc(roomId)
+        .collection('questions')
+        .doc(questionId)
+        .update({
+          likes: firebase.firestore.FieldValue.arrayUnion(user?.id),
+        });
     }
+  }
 
-    return (
-        render ? (
-            <div id="page-room">
-            <Header>
-                <div className="content">
-                    <Logo maxHeight={45} className='itsInTheRoom'/>
-                    <div className="endContent">
-                        <RoomCode code={roomId} />
-                        <Switcher />
-                    </div>
-                </div>
-            </Header>
+  async function login() {
+    await signInWithGoogle();
+  }
 
-            <Main>
-                <RoomTitle title={title} questions={questions}/>
-                <Form onSubmit={handleSendQuestion}>
-                    <textarea
-                        placeholder='O que você quer perguntar?'
-                        onChange={event => setNewQuestion(event.target.value)}
-                        value={newQuestion}
-                    />
-
-                    <FormFooter>
-                        {canLogIn ?
-                            user ?
-                            <div className="user-info">
-                                <img src={user.avatar} alt={user.name} />
-                                <span>{user.name}</span>
-                            </div>
-                            :
-                            <span>Para enviar uma pergunta, <button onClick={login}>faça seu login</button>.</span>
-                            :
-                            <div></div>
-                        }
-                        <Button type='submit' disabled={!user}>Enviar pergunta</Button>
-                    </FormFooter>
-                </Form>
-
-                <QuestionList>
-                    {questions.map(question => {
-                        return (
-                            <Question
-                                key={question.id}
-                                content={question.content}
-                                author={question.author}
-                                isHighlighted={question.isHighlighted}
-                                isAnswered={question.isAnswered}
-                            >
-                                {!question.isAnswered &&
-                                    <button
-                                        className={`like-button ${question.likeId ? 'liked' : ''}`}
-                                        type="button"
-                                        aria-label="Marcar como gostei"
-                                        onClick={() => handleLikeQuestion(question.id, question.likeId)}
-                                    >
-                                        {question.likeCount > 0 && <span>{question.likeCount}</span>}
-                                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                            <path d="M7 22H4C3.46957 22 2.96086 21.7893 2.58579 21.4142C2.21071 21.0391 2 20.5304 2 20V13C2 12.4696 2.21071 11.9609 2.58579 11.5858C2.96086 11.2107 3.46957 11 4 11H7M14 9V5C14 4.20435 13.6839 3.44129 13.1213 2.87868C12.5587 2.31607 11.7956 2 11 2L7 11V22H18.28C18.7623 22.0055 19.2304 21.8364 19.5979 21.524C19.9654 21.2116 20.2077 20.7769 20.28 20.3L21.66 11.3C21.7035 11.0134 21.6842 10.7207 21.6033 10.4423C21.5225 10.1638 21.3821 9.90629 21.1919 9.68751C21.0016 9.46873 20.7661 9.29393 20.5016 9.17522C20.2371 9.0565 19.9499 8.99672 19.66 9H14Z" stroke="#737380" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                                        </svg>
-
-                                    </button>
-                                }
-                            </Question>
-                        )
-                    })}
-                </QuestionList>
-            </Main>
+  return render ? (
+    <div id="page-room">
+      <Header>
+        <div className="content">
+          <Logo maxHeight={45} className="itsInTheRoom" />
+          <div className="endContent">
+            <RoomCode code={roomId} />
+            <Switcher />
+          </div>
         </div>
-        )
-        :
-        <div></div>
-    )
+      </Header>
+
+      <Main>
+        <RoomTitle title={title} questions={questions} />
+        <Form onSubmit={handleSendQuestion}>
+          <textarea
+            placeholder="O que você quer perguntar?"
+            onChange={(event) => setNewQuestion(event.target.value)}
+            value={newQuestion}
+          />
+
+          <FormFooter>
+            {canLogIn ? (
+              user ? (
+                <div className="user-info">
+                  <img src={user.avatar} alt={user.name} />
+                  <span>{user.name}</span>
+                </div>
+              ) : (
+                <span>
+                  Para enviar uma pergunta,{' '}
+                  <button onClick={login}>faça seu login</button>.
+                </span>
+              )
+            ) : (
+              <div></div>
+            )}
+            <Button type="submit" disabled={!user}>
+              Enviar pergunta
+            </Button>
+          </FormFooter>
+        </Form>
+
+        <QuestionList>
+          {questions.map((question) => {
+            return (
+              <Question
+                key={question.id}
+                content={question.content}
+                author={question.author}
+                isHighlighted={question.isHighlighted}
+                isAnswered={question.isAnswered}
+              >
+                {!question.isAnswered && (
+                  <button
+                    className={`like-button ${question.likeId ? 'liked' : ''}`}
+                    type="button"
+                    aria-label="Marcar como gostei"
+                    onClick={() =>
+                      handleLikeQuestion(question.id, question.likeId)
+                    }
+                  >
+                    {question.likeCount > 0 && (
+                      <span>{question.likeCount}</span>
+                    )}
+                    <svg
+                      width="24"
+                      height="24"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M7 22H4C3.46957 22 2.96086 21.7893 2.58579 21.4142C2.21071 21.0391 2 20.5304 2 20V13C2 12.4696 2.21071 11.9609 2.58579 11.5858C2.96086 11.2107 3.46957 11 4 11H7M14 9V5C14 4.20435 13.6839 3.44129 13.1213 2.87868C12.5587 2.31607 11.7956 2 11 2L7 11V22H18.28C18.7623 22.0055 19.2304 21.8364 19.5979 21.524C19.9654 21.2116 20.2077 20.7769 20.28 20.3L21.66 11.3C21.7035 11.0134 21.6842 10.7207 21.6033 10.4423C21.5225 10.1638 21.3821 9.90629 21.1919 9.68751C21.0016 9.46873 20.7661 9.29393 20.5016 9.17522C20.2371 9.0565 19.9499 8.99672 19.66 9H14Z"
+                        stroke="#737380"
+                        strokeWidth="1.5"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      />
+                    </svg>
+                  </button>
+                )}
+              </Question>
+            );
+          })}
+        </QuestionList>
+      </Main>
+    </div>
+  ) : (
+    <div></div>
+  );
 }

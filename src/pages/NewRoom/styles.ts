@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 export const Container = styled.div`
   display: flex;
@@ -7,14 +7,14 @@ export const Container = styled.div`
 
   main {
     flex: 8;
-    
+
     padding: 0 32px;
 
     display: flex;
     align-items: center;
     justify-content: center;
   }
-`
+`;
 
 export const MainContent = styled.div`
   display: flex;
@@ -32,20 +32,18 @@ export const MainContent = styled.div`
 
   p {
     font-size: 14px;
-    color: ${props => props.theme.colors.text_secondary};
+    color: ${(props) => props.theme.colors.text_secondary};
     margin-top: 16px;
   }
 
   a {
-    color: ${props => props.theme.colors.twelfth};
+    color: ${(props) => props.theme.colors.twelfth};
   }
-`
+`;
 
 export const Form = styled.form`
-
   button {
     margin-top: 16px;
     width: 100%;
   }
-
-`
+`;

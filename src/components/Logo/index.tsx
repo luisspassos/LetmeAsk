@@ -1,28 +1,25 @@
-import { ImgHTMLAttributes } from 'react'
-import LogoImg from '../../assets/images/logo.svg'
-import LogoDarkImg from '../../assets/images/logo_dark.svg'
+import { ImgHTMLAttributes } from 'react';
 
+import LogoDarkImg from '../../assets/images/logo_dark.svg';
+import LogoImg from '../../assets/images/logo.svg';
 import { useTheme } from '../../hooks/useTheme';
-
 import { StylizedLogo } from './styles';
 
 type LogoProps = {
   maxHeight?: number;
   alignSelf?: string;
-} & ImgHTMLAttributes<HTMLImageElement>
+} & ImgHTMLAttributes<HTMLImageElement>;
 
-export function Logo({alignSelf, maxHeight, ...props}: LogoProps) {
-
-  const { state } = useTheme()
+export function Logo({ alignSelf, maxHeight, ...props }: LogoProps) {
+  const { state } = useTheme();
 
   return (
-    <StylizedLogo 
+    <StylizedLogo
       alignSelf={alignSelf}
       maxHeight={maxHeight}
-      src={state.theme === 'dark' ? LogoDarkImg : LogoImg} 
+      src={state.theme === 'dark' ? LogoDarkImg : LogoImg}
       alt="Letmeask"
       {...props}
     />
-  )
+  );
 }
-

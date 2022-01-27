@@ -26,5 +26,5 @@ export const light = {
     text_primary: '#29292E',
     text_secondary: '#737380',
     text_tertiary: '#a8a8b3',
-  }
-}
+  },
+};

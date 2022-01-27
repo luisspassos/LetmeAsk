@@ -1,19 +1,19 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 export const Button = styled.button`
   height: 40px;
   border-radius: 8px;
   overflow: hidden;
 
-  background-color: ${props => props.theme.colors.nonary};
-  border: 1px solid ${props => props.theme.colors.primary};
+  background-color: ${(props) => props.theme.colors.nonary};
+  border: 1px solid ${(props) => props.theme.colors.primary};
   cursor: pointer;
 
   display: flex;
 
-   div {
+  div {
     height: 100%;
-    background-color: ${props => props.theme.colors.primary};
+    background-color: ${(props) => props.theme.colors.primary};
     padding: 0 12px;
     display: flex;
     justify-content: center;
@@ -29,4 +29,4 @@ export const Button = styled.button`
     font-size: 14px;
     font-weight: 500;
   }
-`
+`;

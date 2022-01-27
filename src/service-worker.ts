@@ -57,7 +57,8 @@ registerRoute(
 // precache, in this case same-origin .png requests like those from in public/
 registerRoute(
   // Add in any other file extensions or routing criteria as needed.
-  ({ url }) => url.origin === self.location.origin && url.pathname.endsWith('.png'),
+  ({ url }) =>
+    url.origin === self.location.origin && url.pathname.endsWith('.png'),
   // Customize this strategy as needed, e.g., by changing to CacheFirst.
   new StaleWhileRevalidate({
     cacheName: 'images',
@@ -79,24 +80,24 @@ self.addEventListener('message', (event) => {
 
 // Any other custom service worker logic can go here.
 
-const CACHE_NAME = "cache_sample";
-const urlsToCache = ["index.html", "offline.html"];
-const version = "v0.0.1";
+const CACHE_NAME = 'cache_sample';
+const urlsToCache = ['index.html', 'offline.html'];
+const version = 'v0.0.1';
 //install sw at first time
 //place to cache assets to speed up the loading time of web page
-self.addEventListener("install", (event: any) => {
-  console.log("sw install event");
+self.addEventListener('install', (event: any) => {
+  console.log('sw install event');
   event.waitUntil(
     caches.open(version + CACHE_NAME).then((cache) => {
-      console.log("opened cache");
+      console.log('opened cache');
       return cache.addAll(urlsToCache);
     })
   );
 });
 //Activate the sw after install
 //Place where old caches are cleared
-self.addEventListener("activate", (event: any) => {
-  console.log("sw activate event");
+self.addEventListener('activate', (event: any) => {
+  console.log('sw activate event');
   event.waitUntil(
     caches.keys().then((cacheNames) =>
       Promise.all(
@@ -112,7 +113,7 @@ self.addEventListener("activate", (event: any) => {
   );
 });
 //listen for requests
-self.addEventListener("fetch", (event: any) => {
+self.addEventListener('fetch', (event: any) => {
   event.respondWith(
     caches.match(event.request).then((response) => {
       return response || fetch(event.request);

@@ -1,37 +1,36 @@
-import { useContext } from 'react'
+import { useContext } from 'react';
 
-import Switch from 'react-switch'
+import Switch from 'react-switch';
 
-import { BsMoonStarsFill, BsFillSunFill } from 'react-icons/bs'
+import { BsMoonStarsFill, BsFillSunFill } from 'react-icons/bs';
 
-import { ThemeContext } from 'styled-components'
-import { SwitchWrapper } from './styles'
-import { useTheme } from '../../hooks/useTheme'
+import { ThemeContext } from 'styled-components';
+import { SwitchWrapper } from './styles';
+import { useTheme } from '../../hooks/useTheme';
 
 export function Switcher() {
-
-  const { colors, title } = useContext(ThemeContext)
-  const { state } = useTheme()
+  const { colors, title } = useContext(ThemeContext);
+  const { state } = useTheme();
 
   function toggleTheme() {
-    state.setSave(true)
-    state.setTheme(state.theme === 'dark' ? 'light' : 'dark')
+    state.setSave(true);
+    state.setTheme(state.theme === 'dark' ? 'light' : 'dark');
   }
 
-  return(
+  return (
     <SwitchWrapper>
-      <Switch 
+      <Switch
         onChange={toggleTheme}
         checked={title === 'dark'}
         offColor={colors.switcher_background}
         onColor={colors.switcher_background}
         uncheckedIcon={
-          <div className='moonIcon'>
+          <div className="moonIcon">
             <BsMoonStarsFill color={colors.switcher_icon} size={17} />
           </div>
         }
         checkedIcon={
-          <div className='sunIcon'>
+          <div className="sunIcon">
             <BsFillSunFill color={colors.switcher_icon} size={19} />
           </div>
         }
@@ -39,5 +38,5 @@ export function Switcher() {
         handleDiameter={19}
       />
     </SwitchWrapper>
-  )
+  );
 }

@@ -1,10 +1,10 @@
 import { useEffect, useState } from 'react';
 
-import { useNavigate, useParams } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom';
 
-import deleteImg from '../../assets/images/delete.svg'
-import checkImg from '../../assets/images/check.svg'
-import answerImg from '../../assets/images/answer.svg'
+import deleteImg from '../../assets/images/delete.svg';
+import checkImg from '../../assets/images/check.svg';
+import answerImg from '../../assets/images/answer.svg';
 
 import { Button } from '../../components/Button';
 import { Question } from '../../components/Question';
@@ -23,83 +23,86 @@ import { useAuth } from '../../hooks/useAuth';
 
 type RoomParams = {
   id: string;
-}
+};
 
 export function AdminRoom() {
-
-  const navigate = useNavigate()
-  const params = useParams() as RoomParams
+  const navigate = useNavigate();
+  const params = useParams() as RoomParams;
   const roomId = params.id;
 
-  const { title, questions, authorId, checkIfTheRoomExists, render } = useRoom(roomId)
-  
-  const { user } = useAuth()
+  const { title, questions, authorId, checkIfTheRoomExists, render } =
+    useRoom(roomId);
+
+  const { user } = useAuth();
 
   const [releaseAdminRoles, setReleaseAdminRoles] = useState(false);
 
   useEffect(() => {
-    checkIfTheRoomExists()
-  }, [])
+    checkIfTheRoomExists();
+  }, []);
 
   useEffect(() => {
-
     const checkIsAdmin = user?.id === authorId;
 
-    if(authorId !== '') {
-      if(!checkIsAdmin) {
-        navigate(`/rooms/${roomId}`)
+    if (authorId !== '') {
+      if (!checkIsAdmin) {
+        navigate(`/rooms/${roomId}`);
       } else {
-        setReleaseAdminRoles(true)
+        setReleaseAdminRoles(true);
       }
     }
+  }, [authorId]);
 
-  }, [authorId])
-
-  const questionsRef = database.collection('rooms').doc(roomId).collection('questions')
+  const questionsRef = database
+    .collection('rooms')
+    .doc(roomId)
+    .collection('questions');
 
   async function handleEndRoom() {
-  
-    await database.collection('rooms').doc(roomId).delete()
+    await database.collection('rooms').doc(roomId).delete();
 
-    navigate('/')
+    navigate('/');
   }
 
   async function handleDeleteQuestion(questionId: string) {
     if (window.confirm('Tem certeza que você deseja excluir esta pergunta?')) {
-      await questionsRef.doc(questionId).delete()
+      await questionsRef.doc(questionId).delete();
     }
   }
 
   async function handleCheckQuestionAsAnswered(questionId: string) {
     await questionsRef.doc(questionId).update({
-      isAnswered: true
-    })
+      isAnswered: true,
+    });
   }
 
   async function handleHighlightQuestion(questionId: string) {
     await questionsRef.doc(questionId).update({
-      isHighlighted: true
-    })
+      isHighlighted: true,
+    });
   }
 
-  return (
-    render ? 
+  return render ? (
     <div>
       <Header>
         <div className="content">
-          <Logo maxHeight={45} className='itsInTheRoom'/>
+          <Logo maxHeight={45} className="itsInTheRoom" />
           <div>
             <RoomCode code={roomId} />
-            {releaseAdminRoles && <Button isOutlined onClick={handleEndRoom}>Encerrar sala</Button>}
+            {releaseAdminRoles && (
+              <Button isOutlined onClick={handleEndRoom}>
+                Encerrar sala
+              </Button>
+            )}
             <Switcher />
           </div>
         </div>
       </Header>
 
       <Main>
-        <RoomTitle questions={questions} title={title}/>
+        <RoomTitle questions={questions} title={title} />
         <QuestionList>
-          {questions.map(question => {
+          {questions.map((question) => {
             return (
               <Question
                 key={question.id}
@@ -108,24 +111,25 @@ export function AdminRoom() {
                 isHighlighted={question.isHighlighted}
                 isAnswered={question.isAnswered}
               >
-                {!question.isAnswered && 
-                  (
-                    <>
-                      <button
-                        type="button"
-                        onClick={() => handleCheckQuestionAsAnswered(question.id)}
-                      >
-                        <img src={checkImg} alt="Marcar pergunta como respondida" />
-                      </button>
-                      <button
-                        type="button"
-                        onClick={() => handleHighlightQuestion(question.id)}
-                      >
-                        <img src={answerImg} alt="Dar destaque à pergunta" />
-                      </button>
-                    </>
-                  )
-                }
+                {!question.isAnswered && (
+                  <>
+                    <button
+                      type="button"
+                      onClick={() => handleCheckQuestionAsAnswered(question.id)}
+                    >
+                      <img
+                        src={checkImg}
+                        alt="Marcar pergunta como respondida"
+                      />
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => handleHighlightQuestion(question.id)}
+                    >
+                      <img src={answerImg} alt="Dar destaque à pergunta" />
+                    </button>
+                  </>
+                )}
                 <button
                   type="button"
                   onClick={() => handleDeleteQuestion(question.id)}
@@ -133,12 +137,12 @@ export function AdminRoom() {
                   <img src={deleteImg} alt="Remover pergunta" />
                 </button>
               </Question>
-            )
+            );
           })}
         </QuestionList>
       </Main>
     </div>
-    :
+  ) : (
     <div></div>
-  )
+  );
 }

@@ -1,8 +1,8 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 export const Header = styled.header`
   padding: 24px;
-  border-bottom: 1px solid ${props => props.theme.colors.quaternary};
+  border-bottom: 1px solid ${(props) => props.theme.colors.quaternary};
 
   .content {
     max-width: 1120px;
@@ -22,12 +22,12 @@ export const Header = styled.header`
       button {
         height: 40px;
       }
-    }  
+    }
   }
-`
+`;
 
 export const Main = styled.main`
   max-width: 840px;
   margin: 0 auto;
   padding: 0 20px;
-`
+`;

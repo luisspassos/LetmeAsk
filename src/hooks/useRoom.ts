@@ -1,100 +1,99 @@
-import { useEffect, useState } from "react"
+import { useEffect, useState } from 'react';
 
-import { database } from "../services/firebase"
+import { database } from '../services/firebase';
 
-import { useAuth } from "./useAuth";
+import { useAuth } from './useAuth';
 
-import { useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom';
 
 type QuestionData = {
   author: {
-    name: string,
-    avatar: string
-  },
-  content: string,
-  isAnswered: boolean,
-  isHighlighted: boolean,
-  likes: string[]
+    name: string;
+    avatar: string;
+  };
+  content: string;
+  isAnswered: boolean;
+  isHighlighted: boolean;
+  likes: string[];
 };
 
 export type Question = {
-  id: string,
+  id: string;
   author: {
-    name: string,
-    avatar: string
-  },
-  content: string,
-  isAnswered: boolean,
+    name: string;
+    avatar: string;
+  };
+  content: string;
+  isAnswered: boolean;
   isHighlighted: boolean;
   likeCount: number;
   likeId: string | undefined;
-}
+};
 
 type RoomData = {
   title: string;
   authorId: string;
-}
+};
 
 export function useRoom(roomId: string) {
-  const { user } = useAuth()
+  const { user } = useAuth();
 
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
-  const [questions, setQuestions] = useState<Question[]>([])
-  const [title, setTitle] = useState('')
+  const [questions, setQuestions] = useState<Question[]>([]);
+  const [title, setTitle] = useState('');
   const [authorId, setAuthorId] = useState('');
-  const [render, setRender] = useState(false)
+  const [render, setRender] = useState(false);
 
   async function checkIfTheRoomExists() {
     const roomRef = await database.collection('rooms').doc(roomId).get();
 
     if (!roomRef.exists) {
-      navigate('/')
+      navigate('/');
     }
 
-    setRender(true)
+    setRender(true);
   }
 
   useEffect(() => {
-    const roomRef = database.collection('rooms').doc(roomId)
+    const roomRef = database.collection('rooms').doc(roomId);
 
-    roomRef.get().then(room => {
+    roomRef.get().then((room) => {
+      const roomData = room.data() as RoomData;
 
-      const roomData = room.data() as RoomData
+      setTitle(roomData.title);
+      setAuthorId(roomData.authorId);
+    });
 
-      setTitle(roomData.title)
-      setAuthorId(roomData.authorId)
-    })
+    const unsubscribe = roomRef
+      .collection('questions')
+      .orderBy('timestamp')
+      .onSnapshot((room) => {
+        const questionsArr = room.docs;
 
-    const unsubscribe = roomRef.collection('questions').orderBy("timestamp").onSnapshot(room => {
+        const parsedQuestions = questionsArr.map((question) => {
+          const questionData = question.data() as QuestionData;
 
-      const questionsArr = room.docs
+          return {
+            id: question.id,
+            author: questionData.author,
+            content: questionData.content,
+            isHighlighted: questionData.isHighlighted,
+            isAnswered: questionData.isAnswered,
+            likeCount: (questionData.likes ?? []).length,
+            likeId: (questionData.likes ?? []).find(
+              (likeId) => likeId === user?.id
+            ),
+          };
+        });
 
-      const parsedQuestions = questionsArr.map(question => {
-
-        const questionData = question.data() as QuestionData
-
-        return {
-          id: question.id,
-          author: questionData.author,
-          content: questionData.content,
-          isHighlighted: questionData.isHighlighted,
-          isAnswered: questionData.isAnswered,
-          likeCount: (questionData.likes ?? []).length,
-          likeId: (questionData.likes ?? []).find(likeId => likeId === user?.id)
-        }
-
-      })
-
-      setQuestions(parsedQuestions)
-
-    })
+        setQuestions(parsedQuestions);
+      });
 
     return () => {
-      unsubscribe()
-    }
-  }, [roomId, user?.id])
+      unsubscribe();
+    };
+  }, [roomId, user?.id]);
 
-  return { questions, title, authorId, render, checkIfTheRoomExists }
-
+  return { questions, title, authorId, render, checkIfTheRoomExists };
 }

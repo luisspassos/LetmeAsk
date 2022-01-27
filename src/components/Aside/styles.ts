@@ -1,9 +1,9 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 export const StylizedAside = styled.aside`
   flex: 7;
 
-  background-color: ${props => props.theme.colors.primary};
+  background-color: ${(props) => props.theme.colors.primary};
   color: white;
 
   display: flex;
@@ -26,7 +26,7 @@ export const StylizedAside = styled.aside`
     font-size: 24px;
     line-height: 32px;
     margin-top: 16px;
-    color: ${props => props.theme.colors.octonary};
+    color: ${(props) => props.theme.colors.octonary};
   }
 
   @media (max-width: 825px) {
@@ -34,4 +34,4 @@ export const StylizedAside = styled.aside`
       display: none;
     }
   }
-`
+`;

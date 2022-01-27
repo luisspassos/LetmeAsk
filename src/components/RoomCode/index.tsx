@@ -1,15 +1,13 @@
-import copyImg from '../../assets/images/copy.svg'
-
-import { Button } from './styles'
+import copyImg from '../../assets/images/copy.svg';
+import { Button } from './styles';
 
 type RoomCodeProps = {
   code: string;
-}
+};
 
-export function RoomCode(props: RoomCodeProps) {
-
+export function RoomCode({ code }: RoomCodeProps) {
   function copyRoomCodeToClipboard() {
-    navigator.clipboard.writeText(props.code)
+    navigator.clipboard.writeText(code);
   }
 
   return (
@@ -19,5 +17,5 @@ export function RoomCode(props: RoomCodeProps) {
       </div>
       <span>Sala #{props.code}</span>
     </Button>
-  )
+  );
 }

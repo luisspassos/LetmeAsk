@@ -1,32 +1,44 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 type ContainerProps = {
   isHighlighted: boolean;
   isAnswered: boolean;
-}
+};
 
 export const Container = styled.div<ContainerProps>`
-  background-color: ${({isHighlighted, isAnswered, theme})=> 
-   isAnswered ? theme.colors.senary : isHighlighted ? theme.colors.septenary : theme.colors.quinary
-  };
+  background-color: ${({ isHighlighted, isAnswered, theme }) => {
+    let color = '';
+
+    if (isAnswered) {
+      color = theme.colors.senary;
+    } else if (isHighlighted) {
+      color = theme.colors.septenary;
+    } else {
+      color = theme.colors.quinary;
+    }
+
+    return color;
+  }};
+
   border-radius: 8px;
   box-shadow: 0 2px 12px rgba(0, 0, 0, 0.04);
   padding: 24px;
-  border: ${({isHighlighted, isAnswered, theme})=> isHighlighted && !isAnswered ? `1px solid ${theme.colors.primary}` : 0};
+  border: ${({ isHighlighted, isAnswered, theme }) =>
+    isHighlighted && !isAnswered ? `1px solid ${theme.colors.primary}` : 0};
 
   & + div {
     margin-top: 8px;
   }
 
   p {
-    color: ${props => props.theme.colors.text_primary};
+    color: ${(props) => props.theme.colors.text_primary};
     word-break: break-word;
   }
-`
+`;
 
 export const Footer = styled.footer<ContainerProps>`
   display: flex;
-  justify-content: space-between;
+  justify-content: space - between;
   align-items: center;
   margin-top: 24px;
 
@@ -38,12 +50,15 @@ export const Footer = styled.footer<ContainerProps>`
       width: 32px;
       height: 32px;
       border-radius: 50%;
-      filter: ${({isAnswered})=> isAnswered ? 'grayscale(80%)' : 0};
+      filter: ${({ isAnswered }) => (isAnswered ? 'grayscale(80%)' : 0)};
     }
 
     span {
       margin-left: 8px;
-      color: ${({isHighlighted, isAnswered, theme})=> isHighlighted && !isAnswered ? theme.colors.text_primary : theme.colors.text_secondary};
+      color: ${({ isHighlighted, isAnswered, theme }) =>
+        isHighlighted && !isAnswered
+          ? theme.colors.text_primary
+          : theme.colors.text_secondary};
       font-size: 14px;
     }
   }
@@ -62,21 +77,20 @@ export const Footer = styled.footer<ContainerProps>`
     &.like-button {
       display: flex;
       align-items: flex-end;
-      color: ${props => props.theme.colors.text_secondary};
+      color: ${(props) => props.theme.colors.text_secondary};
       gap: 8px;
 
       &.liked {
-        color: ${props => props.theme.colors.primary};
+        color: ${(props) => props.theme.colors.primary};
 
-        svg path{
-          stroke: ${props => props.theme.colors.primary};
+        svg path {
+          stroke: ${(props) => props.theme.colors.primary};
         }
       }
     }
 
     &:hover {
-      filter: ${props => props.theme.colors.brightness};
+      filter: ${(props) => props.theme.colors.brightness};
     }
   }
-
-`
+`;

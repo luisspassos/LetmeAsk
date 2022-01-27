@@ -1,8 +1,8 @@
-import { createGlobalStyle } from 'styled-components'
+import { createGlobalStyle } from 'styled-components';
 
 export const GlobalStyle = createGlobalStyle`
   :root {
-    color-scheme: ${props => props.theme.title};
+    color-scheme: ${(props) => props.theme.title};
   }
 
   * {
@@ -12,8 +12,8 @@ export const GlobalStyle = createGlobalStyle`
   }
 
   body {
-    background-color: ${props => props.theme.colors.background};
-    color: ${props => props.theme.colors.text_primary};
+    background-color: ${(props) => props.theme.colors.background};
+    color: ${(props) => props.theme.colors.text_primary};
   }
 
   body, input, textarea, button {
@@ -21,6 +21,6 @@ export const GlobalStyle = createGlobalStyle`
   }
 
   input::placeholder, textarea::placeholder {
-    color: ${props => props.theme.colors.placeholder};
+    color: ${(props) => props.theme.colors.placeholder};
   }
-`
+`;

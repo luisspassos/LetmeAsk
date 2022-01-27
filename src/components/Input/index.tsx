@@ -1,10 +1,9 @@
-import { InputHTMLAttributes } from 'react'
-import { StylizedInput } from "./styles";
+import { InputHTMLAttributes } from 'react';
 
-type InputProps = InputHTMLAttributes<HTMLInputElement>
+import { StylizedInput } from './styles';
 
-export function Input({...props}: InputProps) {
-  return(
-    <StylizedInput {...props}/>
-  )
+type InputProps = InputHTMLAttributes<HTMLInputElement>;
+
+export function Input({ ...props }: InputProps) {
+  return <StylizedInput {...props} />;
 }

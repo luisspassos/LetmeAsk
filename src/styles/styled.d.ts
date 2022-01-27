@@ -1,4 +1,4 @@
-import 'styled-components'
+import 'styled-components';
 
 declare module 'styled-components' {
   export interface DefaultTheme {
@@ -6,7 +6,7 @@ declare module 'styled-components' {
 
     colors: {
       background: string;
-  
+
       primary: string;
       secondary: string;
       tertiary: string;
@@ -19,16 +19,16 @@ declare module 'styled-components' {
       denary: string;
       eleventh: string;
       twelfth: string;
-  
+
       switcher_icon: string;
       switcher_background: string;
 
       brightness: string;
       placeholder: string;
-  
+
       text_primary: string;
       text_secondary: string;
       text_tertiary: string;
-    }
+    };
   }
 }
