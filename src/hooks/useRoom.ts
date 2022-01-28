@@ -1,10 +1,8 @@
 import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 import { database } from '../services/firebase';
-
 import { useAuth } from './useAuth';
-
-import { useNavigate } from 'react-router-dom';
 
 type QuestionData = {
   author: {

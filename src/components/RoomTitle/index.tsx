@@ -1,5 +1,5 @@
-import { Title } from './styles';
 import { Question } from '../../hooks/useRoom';
+import { Title } from './styles';
 
 type RoomTitleProps = {
   title: string;

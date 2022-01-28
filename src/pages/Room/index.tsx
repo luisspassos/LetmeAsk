@@ -1,20 +1,16 @@
 import { FormEvent, useState, useEffect } from 'react';
-
 import { useParams } from 'react-router-dom';
 
 import { Button } from '../../components/Button';
 import { Logo } from '../../components/Logo';
 import { Question } from '../../components/Question';
-import { RoomCode } from '../../components/RoomCode';
-import { Switcher } from '../../components/Switcher';
-import { RoomTitle } from '../../components/RoomTitle';
 import { QuestionList } from '../../components/QuestionList';
-
+import { RoomCode } from '../../components/RoomCode';
+import { RoomTitle } from '../../components/RoomTitle';
+import { Switcher } from '../../components/Switcher';
 import { useAuth } from '../../hooks/useAuth';
 import { useRoom } from '../../hooks/useRoom';
-
 import { database, firebase } from '../../services/firebase';
-
 import { Form, FormFooter, Header, Main } from './styles';
 
 type RoomParams = {
@@ -95,6 +91,21 @@ export function Room() {
     await signInWithGoogle();
   }
 
+  const userExists = user ? (
+    <div className="user-info">
+      <img src={user.avatar} alt={user.name} />
+      <span>{user.name}</span>
+    </div>
+  ) : (
+    <span>
+      Para enviar uma pergunta,
+      <button type="submit" onClick={login}>
+        faça seu login
+      </button>
+      .
+    </span>
+  );
+
   return render ? (
     <div id="page-room">
       <Header>
@@ -109,7 +120,7 @@ export function Room() {
 
       <Main>
         <RoomTitle title={title} questions={questions} />
-        <Form onSubmit={handleSendQuestion}>
+        <Form onSubmit={(event) => handleSendQuestion(event)}>
           <textarea
             placeholder="O que você quer perguntar?"
             onChange={(event) => setNewQuestion(event.target.value)}
@@ -117,21 +128,7 @@ export function Room() {
           />
 
           <FormFooter>
-            {canLogIn ? (
-              user ? (
-                <div className="user-info">
-                  <img src={user.avatar} alt={user.name} />
-                  <span>{user.name}</span>
-                </div>
-              ) : (
-                <span>
-                  Para enviar uma pergunta,{' '}
-                  <button onClick={login}>faça seu login</button>.
-                </span>
-              )
-            ) : (
-              <div></div>
-            )}
+            {canLogIn ? userExists : <div />}
             <Button type="submit" disabled={!user}>
               Enviar pergunta
             </Button>
@@ -184,6 +181,6 @@ export function Room() {
       </Main>
     </div>
   ) : (
-    <div></div>
+    <div />
   );
 }

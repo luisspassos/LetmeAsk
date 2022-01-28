@@ -1,21 +1,19 @@
 import { FormEvent, useState } from 'react';
-
 import { Link, useNavigate } from 'react-router-dom';
 
-import { Container, Form, MainContent } from './styles';
-
-import { Button } from '../../components/Button';
 import { Aside } from '../../components/Aside';
-import { Logo } from '../../components/Logo';
+import { Button } from '../../components/Button';
 import { Input } from '../../components/Input';
-
-import { database } from '../../services/firebase';
-
+import { Logo } from '../../components/Logo';
 import { useAuth } from '../../hooks/useAuth';
+import { database } from '../../services/firebase';
+import { Container, Form, MainContent } from './styles';
 
 export function NewRoom() {
   const { user } = useAuth();
   const navigate = useNavigate();
+
+  console.log(useAuth());
 
   const [newRoom, setNewRoom] = useState('');
 
@@ -43,7 +41,7 @@ export function NewRoom() {
         <MainContent>
           <Logo alignSelf="center" />
           <h2>Criar uma nova sala</h2>
-          <Form onSubmit={handleCreateRoom}>
+          <Form onSubmit={(event) => handleCreateRoom(event)}>
             <Input
               type="text"
               placeholder="Nome da sala"

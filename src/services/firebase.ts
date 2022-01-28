@@ -1,5 +1,6 @@
 import firebase from 'firebase/app';
 
+/* eslint-disable import/no-duplicates */
 import 'firebase/auth';
 import 'firebase/firestore';
 

@@ -1,25 +1,20 @@
 import { useEffect, useState } from 'react';
-
 import { useNavigate, useParams } from 'react-router-dom';
 
-import deleteImg from '../../assets/images/delete.svg';
-import checkImg from '../../assets/images/check.svg';
 import answerImg from '../../assets/images/answer.svg';
-
+import checkImg from '../../assets/images/check.svg';
+import deleteImg from '../../assets/images/delete.svg';
 import { Button } from '../../components/Button';
-import { Question } from '../../components/Question';
-import { RoomCode } from '../../components/RoomCode';
-import { Switcher } from '../../components/Switcher';
 import { Logo } from '../../components/Logo';
-import { RoomTitle } from '../../components/RoomTitle';
+import { Question } from '../../components/Question';
 import { QuestionList } from '../../components/QuestionList';
-
-import { useRoom } from '../../hooks/useRoom';
-
-import { Header, Main } from './styles';
-
-import { database } from '../../services/firebase';
+import { RoomCode } from '../../components/RoomCode';
+import { RoomTitle } from '../../components/RoomTitle';
+import { Switcher } from '../../components/Switcher';
 import { useAuth } from '../../hooks/useAuth';
+import { useRoom } from '../../hooks/useRoom';
+import { database } from '../../services/firebase';
+import { Header, Main } from './styles';
 
 type RoomParams = {
   id: string;
@@ -65,6 +60,7 @@ export function AdminRoom() {
   }
 
   async function handleDeleteQuestion(questionId: string) {
+    // eslint-disable-next-line no-alert
     if (window.confirm('Tem certeza que você deseja excluir esta pergunta?')) {
       await questionsRef.doc(questionId).delete();
     }
@@ -90,7 +86,7 @@ export function AdminRoom() {
           <div>
             <RoomCode code={roomId} />
             {releaseAdminRoles && (
-              <Button isOutlined onClick={handleEndRoom}>
+              <Button isOutlined onClick={() => handleEndRoom()}>
                 Encerrar sala
               </Button>
             )}
@@ -143,6 +139,6 @@ export function AdminRoom() {
       </Main>
     </div>
   ) : (
-    <div></div>
+    <div />
   );
 }

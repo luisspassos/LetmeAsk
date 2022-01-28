@@ -5,13 +5,13 @@ import {
   Dispatch,
   SetStateAction,
   useEffect,
+  useMemo,
 } from 'react';
-
-import { light } from '../styles/themes/light';
-import { dark } from '../styles/themes/dark';
+import { DefaultTheme } from 'styled-components';
 
 import { useThemeDetector } from '../hooks/useThemeDetector';
-import { DefaultTheme } from 'styled-components';
+import { dark } from '../styles/themes/dark';
+import { light } from '../styles/themes/light';
 
 type ColorThemeProviderProps = {
   children: ReactNode;
@@ -36,7 +36,7 @@ export function ColorThemeProvider({ children }: ColorThemeProviderProps) {
   const storedTheme = localStorage.getItem('theme');
   const getUserTheme = useThemeDetector() ? 'dark' : 'light';
 
-  const initialTheme = storedTheme ? storedTheme : getUserTheme;
+  const initialTheme = storedTheme || getUserTheme;
 
   const [theme, setTheme] = useState(initialTheme);
   const [save, setSave] = useState(false);
@@ -47,13 +47,16 @@ export function ColorThemeProvider({ children }: ColorThemeProviderProps) {
     }
   }, [theme, save]);
 
+  const colorProviderValue = useMemo(
+    () => ({
+      state: { theme, setTheme, save, setSave },
+      themes: { dark, light },
+    }),
+    []
+  );
+
   return (
-    <ColorThemeContext.Provider
-      value={{
-        state: { theme, setTheme, save, setSave },
-        themes: { dark, light },
-      }}
-    >
+    <ColorThemeContext.Provider value={colorProviderValue}>
       {children}
     </ColorThemeContext.Provider>
   );

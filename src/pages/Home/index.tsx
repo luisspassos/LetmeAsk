@@ -1,19 +1,14 @@
 import { FormEvent, useState } from 'react';
-
 import { useNavigate } from 'react-router-dom';
 
 import googleIconImg from '../../assets/images/google-icon.svg';
-
-import { Container, MainContent, Form, Separator } from './styles';
-
-import { Button } from '../../components/Button';
 import { Aside } from '../../components/Aside';
-import { Logo } from '../../components/Logo';
+import { Button } from '../../components/Button';
 import { Input } from '../../components/Input';
-
+import { Logo } from '../../components/Logo';
 import { useAuth } from '../../hooks/useAuth';
-
 import { database } from '../../services/firebase';
+import { Container, MainContent, Form, Separator } from './styles';
 
 export function Home() {
   const navigate = useNavigate();
@@ -39,6 +34,7 @@ export function Home() {
     const roomRef = await database.collection('rooms').doc(roomCode).get();
 
     if (!roomRef.exists) {
+      // eslint-disable-next-line no-alert
       alert('Room does not exists.');
       return;
     }
@@ -52,12 +48,12 @@ export function Home() {
       <main>
         <MainContent>
           <Logo alignSelf="center" />
-          <Button onClick={handleCreateRoom} className="create-room">
+          <Button onClick={() => handleCreateRoom()} className="create-room">
             <img src={googleIconImg} alt="Logo do Google" />
             Crie sua sala com o Google
           </Button>
           <Separator>ou entre em uma sala</Separator>
-          <Form onSubmit={handleJoinRoom}>
+          <Form onSubmit={(event) => handleJoinRoom(event)}>
             <Input
               type="text"
               placeholder="Digite o código da sala"

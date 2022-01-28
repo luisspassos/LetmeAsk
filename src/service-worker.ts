@@ -1,3 +1,4 @@
+/* eslint-disable import/no-extraneous-dependencies */
 /// <reference lib="webworker" />
 /* eslint-disable no-restricted-globals */
 
@@ -22,11 +23,13 @@ clientsClaim();
 // Their URLs are injected into the manifest variable below.
 // This variable must be present somewhere in your service worker file,
 // even if you decide not to use precaching. See https://cra.link/PWA
+// eslint-disable-next-line no-underscore-dangle
 precacheAndRoute(self.__WB_MANIFEST);
 
 // Set up App Shell-style routing, so that all navigation requests
 // are fulfilled with your index.html shell. Learn more at
 // https://developers.google.com/web/fundamentals/architecture/app-shell
+// eslint-disable-next-line prefer-regex-literals
 const fileExtensionRegexp = new RegExp('/[^/?]+\\.[^/]+$');
 registerRoute(
   // Return false to exempt requests from being fulfilled by index.html.
@@ -50,6 +53,7 @@ registerRoute(
     // Return true to signal that we want to use the handler.
     return true;
   },
+  // eslint-disable-next-line prefer-template
   createHandlerBoundToURL(process.env.PUBLIC_URL + '/index.html')
 );
 
@@ -83,8 +87,8 @@ self.addEventListener('message', (event) => {
 const CACHE_NAME = 'cache_sample';
 const urlsToCache = ['index.html', 'offline.html'];
 const version = 'v0.0.1';
-//install sw at first time
-//place to cache assets to speed up the loading time of web page
+// install sw at first time
+// place to cache assets to speed up the loading time of web page
 self.addEventListener('install', (event: any) => {
   console.log('sw install event');
   event.waitUntil(
@@ -94,8 +98,8 @@ self.addEventListener('install', (event: any) => {
     })
   );
 });
-//Activate the sw after install
-//Place where old caches are cleared
+// Activate the sw after install
+// Place where old caches are cleared
 self.addEventListener('activate', (event: any) => {
   console.log('sw activate event');
   event.waitUntil(
@@ -112,7 +116,7 @@ self.addEventListener('activate', (event: any) => {
     )
   );
 });
-//listen for requests
+// listen for requests
 self.addEventListener('fetch', (event: any) => {
   event.respondWith(
     caches.match(event.request).then((response) => {

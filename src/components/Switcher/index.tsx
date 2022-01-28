@@ -1,12 +1,10 @@
 import { useContext } from 'react';
-
-import Switch from 'react-switch';
-
 import { BsMoonStarsFill, BsFillSunFill } from 'react-icons/bs';
-
+import Switch from 'react-switch';
 import { ThemeContext } from 'styled-components';
-import { SwitchWrapper } from './styles';
+
 import { useTheme } from '../../hooks/useTheme';
+import { SwitchWrapper } from './styles';
 
 export function Switcher() {
   const { colors, title } = useContext(ThemeContext);
@@ -20,7 +18,7 @@ export function Switcher() {
   return (
     <SwitchWrapper>
       <Switch
-        onChange={toggleTheme}
+        onChange={() => toggleTheme()}
         checked={title === 'dark'}
         offColor={colors.switcher_background}
         onColor={colors.switcher_background}
