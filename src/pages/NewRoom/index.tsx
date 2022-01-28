@@ -13,8 +13,6 @@ export function NewRoom() {
   const { user } = useAuth();
   const navigate = useNavigate();
 
-  console.log(useAuth());
-
   const [newRoom, setNewRoom] = useState('');
 
   async function handleCreateRoom(event: FormEvent) {
@@ -31,7 +29,7 @@ export function NewRoom() {
       authorId: user?.id,
     });
 
-    navigate(`/rooms/${firebaseRoom.id}`);
+    navigate(`/admin/rooms/${firebaseRoom.id}`);
   }
 
   return (

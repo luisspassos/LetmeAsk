@@ -51,9 +51,7 @@ export function useRoom(roomId: string) {
         navigate('/');
       }
     });
-    // ver responsivdade da quantidade de perguntas, DE TUDO
-    // ver pwa
-    // quando usuario criar a sala, ir direto para a admin
+
     return () => {
       unsubscribe();
     };
