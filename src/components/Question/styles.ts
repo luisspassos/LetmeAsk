@@ -38,7 +38,7 @@ export const Container = styled.div<ContainerProps>`
 
 export const Footer = styled.footer<ContainerProps>`
   display: flex;
-  justify-content: space - between;
+  justify-content: space-between;
   align-items: center;
   margin-top: 24px;
 

@@ -25,8 +25,16 @@ export function AdminRoom() {
   const params = useParams() as RoomParams;
   const roomId = params.id;
 
-  const { title, questions, authorId, checkIfTheRoomExists, render } =
-    useRoom(roomId);
+  const {
+    title,
+    questions,
+    authorId,
+    checkIfTheRoomExists,
+    render,
+    roomDeleted,
+  } = useRoom(roomId);
+
+  useEffect(roomDeleted, []);
 
   const { user } = useAuth();
 

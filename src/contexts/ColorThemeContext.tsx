@@ -52,7 +52,7 @@ export function ColorThemeProvider({ children }: ColorThemeProviderProps) {
       state: { theme, setTheme, save, setSave },
       themes: { dark, light },
     }),
-    []
+    [theme]
   );
 
   return (

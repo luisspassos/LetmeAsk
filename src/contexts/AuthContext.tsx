@@ -70,7 +70,7 @@ export function AuthContextProvider({ children }: AuthContextProviderProps) {
 
   const authProviderValue = useMemo(
     () => ({ user, signInWithGoogle, canLogIn }),
-    [user]
+    [user, signInWithGoogle, canLogIn]
   );
 
   return (

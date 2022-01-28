@@ -21,7 +21,10 @@ export function Room() {
   const params = useParams() as RoomParams;
   const roomId = params.id;
 
-  const { title, questions, render, checkIfTheRoomExists } = useRoom(roomId);
+  const { title, questions, render, checkIfTheRoomExists, roomDeleted } =
+    useRoom(roomId);
+
+  useEffect(roomDeleted, []);
 
   useEffect(() => {
     checkIfTheRoomExists();
@@ -98,7 +101,7 @@ export function Room() {
     </div>
   ) : (
     <span>
-      Para enviar uma pergunta,
+      Para enviar uma pergunta,{' '}
       <button type="submit" onClick={login}>
         faça seu login
       </button>

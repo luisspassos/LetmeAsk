@@ -43,6 +43,21 @@ export function useRoom(roomId: string) {
   const [authorId, setAuthorId] = useState('');
   const [render, setRender] = useState(false);
 
+  function roomDeleted() {
+    const roomRef = database.collection('rooms').doc(roomId);
+
+    const unsubscribe = roomRef.onSnapshot((data) => {
+      if (!data.exists) {
+        navigate('/');
+      }
+    });
+    // ver responsivdade da quantidade de perguntas, DE TUDO
+    // ver pwa
+    return () => {
+      unsubscribe();
+    };
+  }
+
   async function checkIfTheRoomExists() {
     const roomRef = await database.collection('rooms').doc(roomId).get();
 
@@ -93,5 +108,12 @@ export function useRoom(roomId: string) {
     };
   }, [roomId, user?.id]);
 
-  return { questions, title, authorId, render, checkIfTheRoomExists };
+  return {
+    questions,
+    title,
+    authorId,
+    render,
+    checkIfTheRoomExists,
+    roomDeleted,
+  };
 }
