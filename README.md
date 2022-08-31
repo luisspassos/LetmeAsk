@@ -26,6 +26,10 @@ This project was developed with the following technologies:
 
 ## 🚀 How to run
 
+[https://letmeask-luisspassos.vercel.app/](https://letmeask-luisspassos.vercel.app/)
+
+Or
+
 Clone the project and access its folder.
 
 ```bash
